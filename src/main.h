@@ -38,12 +38,12 @@ static const int64 MAX_MONEY = 2000000000 * COIN;
 static const int64 MAX_MINT_PROOF_OF_WORK = 9999 * COIN;
 static const int64 MIN_TXOUT_AMOUNT = MIN_TX_FEE;
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
-static const int COINBASE_MATURITY_PPC = 500;
+static const int COINBASE_MATURITY_PPC = 100;
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
-static const int STAKE_TARGET_SPACING = 10 * 60; // 10-minute block spacing 
-static const int STAKE_MIN_AGE = 60 * 60 * 24 * 30; // minimum age for coin age
-static const int STAKE_MAX_AGE = 60 * 60 * 24 * 90; // stake age of full weight
+static const int STAKE_TARGET_SPACING = 2.5 * 60; // 1-minute block spacing
+static const int STAKE_MIN_AGE = 60 * 60 * 24 * 5; // minimum age for coin age
+static const int STAKE_MAX_AGE = 60 * 60 * 24 * 365 * 9000; // stake age of full weight
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
@@ -51,10 +51,10 @@ static const int fHaveUPnP = true;
 static const int fHaveUPnP = false;
 #endif
 
-static const uint256 hashGenesisBlockOfficial("0x0000000032fe677166d54963b62a4677d8957e87c508eaa4fd7eb1c880cd27e3");
+static const uint256 hashGenesisBlockOfficial("0x00000d13ae7d09e52018d4feb8efdd31e02fb9ded06856167d23e2e3748f99ce");
 static const uint256 hashGenesisBlockTestNet("0x00000001f757bb737f6596503e17cd17b0658ce630cc727c0cca81aec47c9f06");
 
-static const int64 nMaxClockDrift = 2 * 60 * 60;        // two hours
+static const int64 nMaxClockDrift = 0.5 * 60 * 60;        // 30 mins
 
 extern CScript COINBASE_FLAGS;
 

@@ -997,13 +997,13 @@ void MapPort(bool /* unused fMapPort */)
 // The second name should resolve to a list of seed addresses.
 // testnet dns seed begins with 't', all else are ppcoin dns seeds.
 static const char *strDNSSeed[][2] = {
-    {"seed", "seed.ppcoin.net"},
-    {"seedppc", "seedppc.ppcoin.net"},
-    {"7server", "ppcseed.ns.7server.net"},
-    {"altcointech", "dnsseed.ppc.altcointech.net"},
-    {"diandianbi", "seed.diandianbi.org"},
-    {"tnseed", "tnseed.ppcoin.net"},
-    {"tnseedppc", "tnseedppc.ppcoin.net"},
+    {"seed", "seed.sproutcoin.org"},
+    {"seed2", "seed2.sproutcoin.org"},
+    {"seed3", "seed3.sproutcoin.org"},
+    {"seed4", "seed4.sproutcoin.org"},
+    {"seed5", "seed5.sproutcoin.org"},
+    {"seed6", "seed6.sproutcoin.org"},
+    {"seed7", "seed7.sproutcoin.org"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
