@@ -2330,7 +2330,7 @@ bool LoadBlockIndex(bool fAllowNew)
         // Genesis block
         const char* pszTimestamp = "Look at how a single candle can both defy and define the darkness";
         CTransaction txNew;
-        txNew.nTime = 1435541516;
+        txNew.nTime = 1435547102;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(9999) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
