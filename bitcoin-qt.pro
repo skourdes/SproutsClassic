@@ -1,11 +1,11 @@
 TEMPLATE = app
-TARGET = sprouts-qt
-VERSION = 0.6.3.0
+TARGET = sprouts
+VERSION = 0.4.0.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 
-# for boost 1.37, add -mt to the boost libraries 
+# for boost 1.55, add -mt to the boost libraries 
 # use: qmake BOOST_LIB_SUFFIX=-mt
 # for boost thread win32 with _win32 sufix
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
@@ -14,6 +14,19 @@ CONFIG += no_include_pwd
 # Dependency library locations can be customized with BOOST_INCLUDE_PATH, 
 #    BOOST_LIB_PATH, BDB_INCLUDE_PATH, BDB_LIB_PATH
 #    OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+
+#BOOST_INCLUDE_PATH=/opt/local/include/boost
+#BOOST_LIB_PATH=/opt/local/lib
+#BDB_INCLUDE_PATH=/opt/local/include/db48
+#BDB_LIB_PATH=/opt/local/lib/db48
+#OPENSSL_INCLUDE_PATH=/opt/local/include/openssl
+#OPENSSL_LIB_PATH=/opt/local/lib
+
+#MINIUPNPC_INCLUDE_PATH=/opt/local/include/miniupnpc
+#MINIUPNPC_LIB_PATH=/opt/local/lib
+
+#QRENCODE_INCLUDE_PATH=/opt/local/include
+#QRENCODE_LIB_PATH=/opt/local/lib
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -235,7 +248,7 @@ FORMS += \
     src/qt/forms/overviewpage.ui \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
-    src/qt/forms/rpcconsole.ui
+    src/qt/forms/rpcconsole.ui 
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -280,7 +293,7 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw44-mt-1_43
+    windows:BOOST_LIB_SUFFIX = -mgw48-mt-1_55
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
@@ -332,12 +345,12 @@ macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/sprouts.icns
-macx:TARGET = "PPcoin-Qt"
+macx:TARGET = "Sprouts"
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
 LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
-LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
+LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX -ldl
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lole32 -luuid -lgdi32
 LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
