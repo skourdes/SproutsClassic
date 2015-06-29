@@ -2341,9 +2341,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1435541516;
+        block.nTime    = 1435547102;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 1116196;
+        block.nNonce   = 1560399;
 
         if (fTestNet)
         {
@@ -2355,7 +2355,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x68ac069f78bb0af7b371168cef572a76c9f1b0397562b4b88fc96517e082bbdb"));
+        assert(block.hashMerkleRoot == uint256("0xff8892d29487de48caf88c622e688078a6d1268245de17248c0b1377737da38c"));
         block.print();
         assert(block.GetHash() == hashGenesisBlock);
         assert(block.CheckBlock());
