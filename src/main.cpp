@@ -922,12 +922,7 @@ int64 GetProofOfWorkReward(unsigned int nBits)
     nSubsidy = (nSubsidy / CENT) * CENT;
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nBits=0x%08x nSubsidy=%"PRI64d"\n", FormatMoney(nSubsidy).c_str(), nBits, nSubsidy);
-
-    const CBlockIndex* pIndex0 = GetLastBlockIndex(pindexBest, false);
-    if(pIndex0->nHeight == 1){
-        return 1000000 * COIN;
-    }
-
+    
     return min(nSubsidy, MAX_MINT_PROOF_OF_WORK);
 }
 
