@@ -854,7 +854,7 @@ boost::filesystem::path GetDefaultDataDir()
 
     // Windows: C:\Documents and Settings\username\Application Data\Sprouts
     // Mac: ~/Library/Application Support/Sprouts
-    // Unix: ~/.ppcoin
+    // Unix: ~/.sprouts
 #ifdef WIN32
     // Windows
     return MyGetSpecialFolderPath(CSIDL_APPDATA, true) / "Sprouts";

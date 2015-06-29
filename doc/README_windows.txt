@@ -18,12 +18,12 @@ help further advance the field of crypto-currency.
 
 Setup
 -----
-After completing windows setup then run ppcoin-qt.
-Alternatively you can run windows command line (cmd) in ppcoin program dir.
+After completing windows setup then run sprouts-qt.
+Alternatively you can run windows command line (cmd) in sprouts program dir.
   cd daemon
   sproutsd
-You would need to create a configuration file ppcoin.conf in the default
-wallet directory. Grant access to sproutsd/ppcoin-qt in anti-virus and firewall
+You would need to create a configuration file sprouts.conf in the default
+wallet directory. Grant access to sproutsd/sprouts-qt in anti-virus and firewall
 applications if necessary.
 
 The software automatically finds other nodes to connect to.  You can
@@ -46,7 +46,7 @@ required.
 
 
 See the documentation/wiki at github:
-  http://github.com/ppcoin/ppcoin
+  http://github.com/sprouts/sprouts
 for help and more information.
 
 

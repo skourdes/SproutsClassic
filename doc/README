@@ -19,9 +19,9 @@ help further advance the field of crypto-currency.
 Setup
 -----
 Unpack the files into a directory and run:
- bin/32/ppcoin-qt (GUI, 32-bit)
+ bin/32/sprouts-qt (GUI, 32-bit)
  bin/32/sproutsd (headless, 32-bit)
- bin/64/ppcoin-qt (GUI, 64-bit)
+ bin/64/sprouts-qt (GUI, 64-bit)
  bin/64/sproutsd (headless, 64-bit)
 
 The software automatically finds other nodes to connect to.  You can
@@ -45,7 +45,7 @@ is required.
 
 
 See the documentation/wiki at github:
-  http://github.com/ppcoin/ppcoin
+  http://github.com/sprouts/sprouts
 for help and more information.
 
 

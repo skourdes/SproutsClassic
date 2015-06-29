@@ -1,7 +1,7 @@
 src/*.exe
-src/ppcoin
+src/sprtsoin
 src/sproutsd
-src/test_ppcoin
+src/test_sprouts
 src/build.h
 .*.swp
 *.*~*
@@ -10,11 +10,11 @@ src/build.h
 *.orig
 *.o
 *.patch
-.ppcoin
+.sprouts
 #compilation and Qt preprocessor part
 *.qm
 Makefile
-ppcoin-qt
+sprouts-qt
 #resources cpp
 qrc_*.cpp
 #qt creator

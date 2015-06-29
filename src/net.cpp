@@ -250,7 +250,7 @@ bool GetMyExternalIP(CNetAddr& ipRet)
 
 void ThreadGetMyExternalIP(void* parg)
 {
-    // Wait for IRC to get it first - disabled with ppcoin
+    // Wait for IRC to get it first - disabled with sprouts
     if (false && GetBoolArg("-irc", false))
     {
         for (int i = 0; i < 2 * 60; i++)
@@ -995,7 +995,7 @@ void MapPort(bool /* unused fMapPort */)
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
-// testnet dns seed begins with 't', all else are ppcoin dns seeds.
+// testnet dns seed begins with 't', all else are sprouts dns seeds.
 static const char *strDNSSeed[][2] = {
     {"seed", "seed.sproutcoin.org"},
     {"seed2", "seed2.sproutcoin.org"},
@@ -1030,7 +1030,7 @@ void ThreadDNSAddressSeed2(void* parg)
     printf("ThreadDNSAddressSeed started\n");
     int found = 0;
 
-    if (true /*!fTestNet*/)  // ppcoin enables dns seeding with testnet too
+    if (true /*!fTestNet*/)  // sprouts enables dns seeding with testnet too
     {
         printf("Loading addresses from DNS seeds (could take a while)\n");
 
@@ -1436,7 +1436,7 @@ void ThreadMessageHandler2(void* parg)
     }
 }
 
-// ppcoin: stake minter thread
+// sprouts: stake minter thread
 void static ThreadStakeMinter(void* parg)
 {
     printf("ThreadStakeMinter started\n");
@@ -1645,7 +1645,7 @@ void StartNode(void* parg)
     // Get addresses from IRC and advertise ours
     // if (!CreateThread(ThreadIRCSeed, NULL))
     //     printf("Error: CreateThread(ThreadIRCSeed) failed\n");
-    // IRC disabled with ppcoin
+    // IRC disabled with sprouts
     printf("IRC seeding/communication disabled\n");
 
     // Send and receive from sockets, accept connections
@@ -1671,7 +1671,7 @@ void StartNode(void* parg)
     // Generate coins in the background
     GenerateBitcoins(GetBoolArg("-gen", false), pwalletMain);
 
-    // ppcoin: mint proof-of-stake blocks in the background
+    // sprouts: mint proof-of-stake blocks in the background
     if (!CreateThread(ThreadStakeMinter, pwalletMain))
         printf("Error: CreateThread(ThreadStakeMinter) failed\n");
 }

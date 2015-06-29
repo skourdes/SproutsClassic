@@ -30,7 +30,7 @@ but you can get the current version from http://developer.apple.com
 
 1.  Clone the github tree to get the source code:
 
-git clone git@github.com:ppcoin/ppcoin.git ppcoin
+git clone git@github.com:sprouts/sprouts.git sprouts
 
 2.  Download and install MacPorts from http://www.macports.org/
 
@@ -46,7 +46,7 @@ sudo port install qrencode
 
 4.  Now you should be able to build bitcoind:
 
-cd ppcoin/src
+cd sprouts/src
 make -f makefile.osx
 # To build 64-bit binaies:
 make -f makefile.osx RELEASE=true 64BIT=true

@@ -27,7 +27,7 @@ extern const std::string CLIENT_NAME;
 extern const std::string CLIENT_BUILD;
 extern const std::string CLIENT_DATE;
 
-// ppcoin version - intended for display purpose ONLY
+// sprouts version - intended for display purpose ONLY
 #define PPCOIN_VERSION_MAJOR       0
 #define PPCOIN_VERSION_MINOR       4
 #define PPCOIN_VERSION_REVISION    0

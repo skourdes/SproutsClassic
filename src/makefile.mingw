@@ -54,7 +54,7 @@
 #
 # - Build sproutsd.exe
 #   in MinGW MSYS
-#     cd ppcoin/src
+#     cd sprouts/src
 #     make sproutsd.exe -f makefile.mingw USE_UPNP=1
 #
 #

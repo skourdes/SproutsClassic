@@ -585,7 +585,7 @@ bool AppInit2(int argc, char* argv[])
             ThreadSafeMessageBox(_("Warning: -paytxfee is set very high.  This is the transaction fee you will pay if you send a transaction."), _("Sprouts"), wxOK | wxICON_EXCLAMATION | wxMODAL);
     }
 
-    if (mapArgs.count("-reservebalance")) // ppcoin: reserve balance amount
+    if (mapArgs.count("-reservebalance")) // sprouts: reserve balance amount
     {
         int64 nReserveBalance = 0;
         if (!ParseMoney(mapArgs["-reservebalance"], nReserveBalance))
@@ -595,7 +595,7 @@ bool AppInit2(int argc, char* argv[])
         }
     }
 
-    if (mapArgs.count("-checkpointkey")) // ppcoin: checkpoint master priv key
+    if (mapArgs.count("-checkpointkey")) // sprouts: checkpoint master priv key
     {
         if (!Checkpoints::SetCheckpointPrivKey(GetArg("-checkpointkey", "")))
             ThreadSafeMessageBox(_("Unable to sign checkpoint, wrong checkpointkey?\n"), _("Sprouts"), wxOK | wxMODAL);

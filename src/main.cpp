@@ -121,7 +121,7 @@ void SyncWithWallets(const CTransaction& tx, const CBlock* pblock, bool fUpdate,
 {
     if (!fConnect)
     {
-        // ppcoin: wallets need to refund inputs when disconnecting coinstake
+        // sprouts: wallets need to refund inputs when disconnecting coinstake
         if (tx.IsCoinStake())
         {
             BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
@@ -480,7 +480,7 @@ bool CTransaction::CheckTransaction() const
         const CTxOut& txout = vout[i];
         if (txout.IsEmpty() && (!IsCoinBase()) && (!IsCoinStake()))
             return DoS(100, error("CTransaction::CheckTransaction() : txout empty for user transaction"));
-        // ppcoin: enforce minimum output amount
+        // sprouts: enforce minimum output amount
         if ((!txout.IsEmpty()) && txout.nValue < MIN_TXOUT_AMOUNT)
             return DoS(100, error("CTransaction::CheckTransaction() : txout.nValue below minimum"));
         if (txout.nValue > MAX_MONEY)
@@ -526,7 +526,7 @@ bool CTxMemPool::accept(CTxDB& txdb, CTransaction &tx, bool fCheckInputs,
     // Coinbase is only valid in a block, not as a loose transaction
     if (tx.IsCoinBase())
         return tx.DoS(100, error("CTxMemPool::accept() : coinbase as individual tx"));
-    // ppcoin: coinstake is also only valid in a block, not as a loose transaction
+    // sprouts: coinstake is also only valid in a block, not as a loose transaction
     if (tx.IsCoinStake())
         return tx.DoS(100, error("CTxMemPool::accept() : coinstake as individual tx"));
 
@@ -885,7 +885,7 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-// ppcoin: find block wanted by given orphan block
+// sprouts: find block wanted by given orphan block
 uint256 WantedByOrphan(const CBlock* pblockOrphan)
 {
     // Work back to the first block in the orphan chain
@@ -902,7 +902,7 @@ int64 GetProofOfWorkReward(unsigned int nBits)
     CBigNum bnTargetLimit = bnProofOfWorkLimit;
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
 
-    // ppcoin: subsidy is cut in half every 16x multiply of difficulty
+    // sprouts: subsidy is cut in half every 16x multiply of difficulty
     // A reasonably continuous curve is used to avoid shock to market
     // (nSubsidyLimit / nSubsidy) ** 4 == bnProofOfWorkLimit / bnTarget
     CBigNum bnLowerBound = CENT;
@@ -922,11 +922,11 @@ int64 GetProofOfWorkReward(unsigned int nBits)
     nSubsidy = (nSubsidy / CENT) * CENT;
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nBits=0x%08x nSubsidy=%"PRI64d"\n", FormatMoney(nSubsidy).c_str(), nBits, nSubsidy);
-    
+
     return min(nSubsidy, MAX_MINT_PROOF_OF_WORK);
 }
 
-// ppcoin: miner's coin stake is rewarded based on coin age spent (coin-days)
+// sprouts: miner's coin stake is rewarded based on coin age spent (coin-days)
 int64 GetProofOfStakeReward(int64 nCoinAge)
 {
     static int64 nRewardCoinYear = 730 * CENT;  // creation amount per coin-year
@@ -959,7 +959,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
     return bnResult.GetCompact();
 }
 
-// ppcoin: find last block index up to pindex
+// sprouts: find last block index up to pindex
 const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfStake)
 {
     while (pindex && pindex->pprev && (pindex->IsProofOfStake() != fProofOfStake))
@@ -981,8 +981,8 @@ unsigned int static GetNextTargetRequired(const CBlockIndex* pindexLast, bool fP
 
     int64 nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
 
-    // ppcoin: target change every block
-    // ppcoin: retarget with exponential moving toward target spacing
+    // sprouts: target change every block
+    // sprouts: retarget with exponential moving toward target spacing
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     int64 nTargetSpacing = fProofOfStake? STAKE_TARGET_SPACING : min(nTargetSpacingWorkMax, (int64) STAKE_TARGET_SPACING * (1 + pindexLast->nHeight - pindexPrev->nHeight));
@@ -1043,7 +1043,7 @@ void static InvalidChainFound(CBlockIndex* pindexNew)
     }
     printf("InvalidChainFound: invalid block=%s  height=%d  trust=%s\n", pindexNew->GetBlockHash().ToString().substr(0,20).c_str(), pindexNew->nHeight, CBigNum(pindexNew->bnChainTrust).ToString().c_str());
     printf("InvalidChainFound:  current best=%s  height=%d  trust=%s\n", hashBestChain.ToString().substr(0,20).c_str(), nBestHeight, CBigNum(bnBestChainTrust).ToString().c_str());
-    // ppcoin: should not enter safe mode for longer invalid chain
+    // sprouts: should not enter safe mode for longer invalid chain
 }
 
 void CBlock::UpdateTime(const CBlockIndex* pindexPrev)
@@ -1242,7 +1242,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs,
                     if (pindex->nBlockPos == txindex.pos.nBlockPos && pindex->nFile == txindex.pos.nFile)
                         return error("ConnectInputs() : tried to spend coinbase/coinstake at depth %d", pindexBlock->nHeight - pindex->nHeight);
 
-            // ppcoin: check transaction timestamp
+            // sprouts: check transaction timestamp
             if (txPrev.nTime > nTime)
                 return DoS(100, error("ConnectInputs() : transaction timestamp earlier than input transaction"));
 
@@ -1297,7 +1297,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs,
 
         if (IsCoinStake())
         {
-            // ppcoin: coin stake tx earns reward instead of paying fee
+            // sprouts: coin stake tx earns reward instead of paying fee
             uint64 nCoinAge;
             if (!GetCoinAge(txdb, nCoinAge))
                 return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
@@ -1314,7 +1314,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs,
             int64 nTxFee = nValueIn - GetValueOut();
             if (nTxFee < 0)
                 return DoS(100, error("ConnectInputs() : %s nTxFee < 0", GetHash().ToString().substr(0,10).c_str()));
-            // ppcoin: enforce transaction fees for every block
+            // sprouts: enforce transaction fees for every block
             if (nTxFee < GetMinFee())
                 return fBlock? DoS(100, error("ConnectInputs() : %s not paying required fee=%s, paid=%s", GetHash().ToString().substr(0,10).c_str(), FormatMoney(GetMinFee()).c_str(), FormatMoney(nTxFee).c_str())) : false;
             nFees += nTxFee;
@@ -1393,7 +1393,7 @@ bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
             return error("DisconnectBlock() : WriteBlockIndex failed");
     }
 
-    // ppcoin: clean up wallet after disconnecting coinstake
+    // sprouts: clean up wallet after disconnecting coinstake
     BOOST_FOREACH(CTransaction& tx, vtx)
         SyncWithWallets(tx, this, false, false);
 
@@ -1484,7 +1484,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
         mapQueuedChanges[tx.GetHash()] = CTxIndex(posThisTx, tx.vout.size());
     }
 
-    // ppcoin: track money supply and mint amount info
+    // sprouts: track money supply and mint amount info
     pindex->nMint = nValueOut - nValueIn + nFees;
     pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
     if (!txdb.WriteBlockIndex(CDiskBlockIndex(pindex)))
@@ -1497,8 +1497,8 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
             return error("ConnectBlock() : UpdateTxIndex failed");
     }
 
-    // ppcoin: fees are not collected by miners as in bitcoin
-    // ppcoin: fees are destroyed to compensate the entire network
+    // sprouts: fees are not collected by miners as in bitcoin
+    // sprouts: fees are destroyed to compensate the entire network
     if (fDebug && GetBoolArg("-printcreation"))
         printf("ConnectBlock() : destroy=%s nFees=%"PRI64d"\n", FormatMoney(nFees).c_str(), nFees);
 
@@ -1736,7 +1736,7 @@ bool CBlock::SetBestChain(CTxDB& txdb, CBlockIndex* pindexNew)
 }
 
 
-// ppcoin: total coin age spent in transaction, in the unit of coin-days.
+// sprouts: total coin age spent in transaction, in the unit of coin-days.
 // Only those coins meeting minimum age requirement counts. As those
 // transactions not in main chain are not currently indexed so we
 // might not find out about their coin age. Older transactions are 
@@ -1782,7 +1782,7 @@ bool CTransaction::GetCoinAge(CTxDB& txdb, uint64& nCoinAge) const
     return true;
 }
 
-// ppcoin: total coin age spent in block, in the unit of coin-days.
+// sprouts: total coin age spent in block, in the unit of coin-days.
 bool CBlock::GetCoinAge(uint64& nCoinAge) const
 {
     nCoinAge = 0;
@@ -1825,14 +1825,14 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos)
         pindexNew->nHeight = pindexNew->pprev->nHeight + 1;
     }
 
-    // ppcoin: compute chain trust score
+    // sprouts: compute chain trust score
     pindexNew->bnChainTrust = (pindexNew->pprev ? pindexNew->pprev->bnChainTrust : 0) + pindexNew->GetBlockTrust();
 
-    // ppcoin: compute stake entropy bit for stake modifier
+    // sprouts: compute stake entropy bit for stake modifier
     if (!pindexNew->SetStakeEntropyBit(GetStakeEntropyBit()))
         return error("AddToBlockIndex() : SetStakeEntropyBit() failed");
 
-    // ppcoin: record proof-of-stake hash value
+    // sprouts: record proof-of-stake hash value
     if (pindexNew->IsProofOfStake())
     {
         if (!mapProofOfStake.count(hash))
@@ -1840,7 +1840,7 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos)
         pindexNew->hashProofOfStake = mapProofOfStake[hash];
     }
 
-    // ppcoin: compute stake modifier
+    // sprouts: compute stake modifier
     uint64 nStakeModifier = 0;
     bool fGeneratedStakeModifier = false;
     if (!ComputeNextStakeModifier(pindexNew, nStakeModifier, fGeneratedStakeModifier))
@@ -1910,12 +1910,12 @@ bool CBlock::CheckBlock() const
         if (vtx[i].IsCoinBase())
             return DoS(100, error("CheckBlock() : more than one coinbase"));
 
-    // ppcoin: only the second transaction can be the optional coinstake
+    // sprouts: only the second transaction can be the optional coinstake
     for (int i = 2; i < vtx.size(); i++)
         if (vtx[i].IsCoinStake())
             return DoS(100, error("CheckBlock() : coinstake in wrong position"));
 
-    // ppcoin: coinbase output should be empty if proof-of-stake block
+    // sprouts: coinbase output should be empty if proof-of-stake block
     if (IsProofOfStake() && (vtx[0].vout.size() != 1 || !vtx[0].vout[0].IsEmpty()))
         return error("CheckBlock() : coinbase output not empty for proof-of-stake block");
 
@@ -1937,7 +1937,7 @@ bool CBlock::CheckBlock() const
     {
         if (!tx.CheckTransaction())
             return DoS(tx.nDoS, error("CheckBlock() : CheckTransaction failed"));
-        // ppcoin: check transaction timestamp
+        // sprouts: check transaction timestamp
         if (GetBlockTime() < (int64)tx.nTime)
             return DoS(50, error("CheckBlock() : block timestamp earlier than transaction timestamp"));
     }
@@ -1964,7 +1964,7 @@ bool CBlock::CheckBlock() const
     if (hashMerkleRoot != BuildMerkleTree())
         return DoS(100, error("CheckBlock() : hashMerkleRoot mismatch"));
 
-    // ppcoin: check block signature
+    // sprouts: check block signature
     if (!CheckBlockSignature())
         return DoS(100, error("CheckBlock() : bad block signature"));
 
@@ -2002,7 +2002,7 @@ bool CBlock::AcceptBlock()
     if (!Checkpoints::CheckHardened(nHeight, hash))
         return DoS(100, error("AcceptBlock() : rejected by hardened checkpoint lockin at %d", nHeight));
 
-    // ppcoin: check that the block satisfies synchronized checkpoint
+    // sprouts: check that the block satisfies synchronized checkpoint
     if (!Checkpoints::CheckSync(hash, pindexPrev))
         return error("AcceptBlock() : rejected by synchronized checkpoint");
 
@@ -2026,7 +2026,7 @@ bool CBlock::AcceptBlock()
                 pnode->PushInventory(CInv(MSG_BLOCK, hash));
     }
 
-    // ppcoin: check pending sync-checkpoint
+    // sprouts: check pending sync-checkpoint
     Checkpoints::AcceptPendingSyncCheckpoint();
 
     return true;
@@ -2041,7 +2041,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
     if (mapOrphanBlocks.count(hash))
         return error("ProcessBlock() : already have block (orphan) %s", hash.ToString().substr(0,20).c_str());
 
-    // ppcoin: check proof-of-stake
+    // sprouts: check proof-of-stake
     // Limited duplicity on stake: prevents block flood attack
     // Duplicate stake allowed only when there is orphan child block
     if (pblock->IsProofOfStake() && setStakeSeen.count(pblock->GetProofOfStake()) && !mapOrphanBlocksByPrev.count(hash) && !Checkpoints::WantedByPendingSyncCheckpoint(hash))
@@ -2051,7 +2051,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
     if (!pblock->CheckBlock())
         return error("ProcessBlock() : CheckBlock FAILED");
 
-    // ppcoin: verify hash target and signature of coinstake tx
+    // sprouts: verify hash target and signature of coinstake tx
     if (pblock->IsProofOfStake())
     {
         uint256 hashProofOfStake = 0;
@@ -2082,7 +2082,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
         }
     }
 
-    // ppcoin: ask for pending sync-checkpoint if any
+    // sprouts: ask for pending sync-checkpoint if any
     if (!IsInitialBlockDownload())
         Checkpoints::AskForPendingSyncCheckpoint(pfrom);
 
@@ -2091,7 +2091,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
     {
         printf("ProcessBlock: ORPHAN BLOCK, prev=%s\n", pblock->hashPrevBlock.ToString().substr(0,20).c_str());
         CBlock* pblock2 = new CBlock(*pblock);
-        // ppcoin: check proof-of-stake
+        // sprouts: check proof-of-stake
         if (pblock2->IsProofOfStake())
         {
             // Limited duplicity on stake: prevents block flood attack
@@ -2108,7 +2108,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
         if (pfrom)
         {
             pfrom->PushGetBlocks(pindexBest, GetOrphanRoot(pblock2));
-            // ppcoin: getblocks may not obtain the ancestor block rejected
+            // sprouts: getblocks may not obtain the ancestor block rejected
             // earlier by duplicate-stake check so we ask for it again directly
             if (!IsInitialBlockDownload())
                 pfrom->AskFor(CInv(MSG_BLOCK, WantedByOrphan(pblock2)));
@@ -2142,14 +2142,14 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
 
     printf("ProcessBlock: ACCEPTED\n");
 
-    // ppcoin: if responsible for sync-checkpoint send it
+    // sprouts: if responsible for sync-checkpoint send it
     if (pfrom && !CSyncCheckpoint::strMasterPrivKey.empty())
         Checkpoints::SendSyncCheckpoint(Checkpoints::AutoSelectSyncCheckpoint());
 
     return true;
 }
 
-// ppcoin: sign block
+// sprouts: sign block
 bool CBlock::SignBlock(const CKeyStore& keystore)
 {
     vector<valtype> vSolutions;
@@ -2172,7 +2172,7 @@ bool CBlock::SignBlock(const CKeyStore& keystore)
     return false;
 }
 
-// ppcoin: check block signature
+// sprouts: check block signature
 bool CBlock::CheckBlockSignature() const
 {
     if (GetHash() == hashGenesisBlock)
@@ -2197,7 +2197,7 @@ bool CBlock::CheckBlockSignature() const
     return false;
 }
 
-// ppcoin: entropy bit for stake modifier if chosen by modifier
+// sprouts: entropy bit for stake modifier if chosen by modifier
 unsigned int CBlock::GetStakeEntropyBit() const
 {
     unsigned int nEntropyBit = 0;
@@ -2363,11 +2363,11 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!block.AddToBlockIndex(nFile, nBlockPos))
             return error("LoadBlockIndex() : genesis block not accepted");
 
-        // ppcoin: initialize synchronized checkpoint
+        // sprouts: initialize synchronized checkpoint
         if (!Checkpoints::WriteSyncCheckpoint(hashGenesisBlock))
             return error("LoadBlockIndex() : failed to init sync checkpoint");
 
-        // ppcoin: upgrade time set to zero if txdb initialized
+        // sprouts: upgrade time set to zero if txdb initialized
         {
             CTxDB txdb;
             if (!txdb.WriteV04UpgradeTime(0))
@@ -2377,7 +2377,7 @@ bool LoadBlockIndex(bool fAllowNew)
         }
     }
 
-    // ppcoin: if checkpoint master key changed must reset sync-checkpoint
+    // sprouts: if checkpoint master key changed must reset sync-checkpoint
     {
         CTxDB txdb;
         string strPubKey = "";
@@ -2395,7 +2395,7 @@ bool LoadBlockIndex(bool fAllowNew)
         txdb.Close();
     }
 
-    // ppcoin: upgrade time set to zero if txdb initialized
+    // sprouts: upgrade time set to zero if txdb initialized
     {
         CTxDB txdb;
         if (txdb.ReadV04UpgradeTime(nProtocolV04UpgradeTime))
@@ -2522,7 +2522,7 @@ string GetWarnings(string strFor)
     if (GetBoolArg("-testsafemode"))
         strRPC = "test";
 
-    // ppcoin: wallet lock warning for minting
+    // sprouts: wallet lock warning for minting
     if (strMintWarning != "")
     {
         nPriority = 0;
@@ -2536,22 +2536,22 @@ string GetWarnings(string strFor)
         strStatusBar = strMiscWarning;
     }
 
-    // ppcoin: should not enter safe mode for longer invalid chain
-    // ppcoin: if sync-checkpoint is too old do not enter safe mode
+    // sprouts: should not enter safe mode for longer invalid chain
+    // sprouts: if sync-checkpoint is too old do not enter safe mode
     if (Checkpoints::IsSyncCheckpointTooOld(60 * 60 * 24 * 10) && !fTestNet)
     {
         nPriority = 100;
         strStatusBar = "WARNING: Checkpoint is too old. Wait for block chain to download, or notify developers of the issue.";
     }
 
-    // ppcoin: if detected invalid checkpoint enter safe mode
+    // sprouts: if detected invalid checkpoint enter safe mode
     if (Checkpoints::hashInvalidCheckpoint != 0)
     {
         nPriority = 3000;
         strStatusBar = strRPC = "WARNING: Invalid checkpoint found! Displayed transactions may not be correct! You may need to upgrade, or notify developers of the issue.";
     }
 
-    // ppcoin: if detected unmet upgrade requirement enter safe mode
+    // sprouts: if detected unmet upgrade requirement enter safe mode
     // Note: v0.4 upgrade requires blockchain redownload if past protocol switch
     if (IsProtocolV04(nProtocolV04UpgradeTime + 60*60*24)) // 1 day margin
     {
@@ -2570,7 +2570,7 @@ string GetWarnings(string strFor)
                 nPriority = alert.nPriority;
                 strStatusBar = alert.strStatusBar;
                 if (nPriority > 1000)
-                    strRPC = strStatusBar;  // ppcoin: safe mode for high alert
+                    strRPC = strStatusBar;  // sprouts: safe mode for high alert
             }
         }
     }
@@ -2728,7 +2728,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             return true;
         }
 
-        // ppcoin: record my external IP reported by peer
+        // sprouts: record my external IP reported by peer
         if (addrFrom.IsRoutable() && addrMe.IsRoutable())
             addrSeenByPeer = addrMe;
 
@@ -2788,7 +2788,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                 item.second.RelayTo(pfrom);
         }
 
-        // ppcoin: relay sync-checkpoint
+        // sprouts: relay sync-checkpoint
         {
             LOCK(Checkpoints::cs_hashSyncCheckpoint);
             if (!Checkpoints::checkpointMessage.IsNull())
@@ -2801,7 +2801,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
         cPeerBlockCounts.input(pfrom->nStartingHeight);
 
-        // ppcoin: ask for pending sync-checkpoint if any
+        // sprouts: ask for pending sync-checkpoint if any
         if (!IsInitialBlockDownload())
             Checkpoints::AskForPendingSyncCheckpoint(pfrom);
     }
@@ -2967,7 +2967,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                         // Bypass PushInventory, this must send even if redundant,
                         // and we want it right after the last block so they don't
                         // wait for other stuff first.
-                        // ppcoin: send latest proof-of-work block to allow the
+                        // sprouts: send latest proof-of-work block to allow the
                         // download node to accept as orphan (proof-of-stake 
                         // block might be rejected by stake connection check)
                         vector<CInv> vInv;
@@ -3014,7 +3014,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             if (pindex->GetBlockHash() == hashStop)
             {
                 printf("  getblocks stopping at %d %s (%u bytes)\n", pindex->nHeight, pindex->GetBlockHash().ToString().substr(0,20).c_str(), nBytes);
-                // ppcoin: tell downloading node about the latest block if it's
+                // sprouts: tell downloading node about the latest block if it's
                 // without risk being rejected due to stake connection check
                 if (hashStop != hashBestChain && pindex->GetBlockTime() + nStakeMinAge > pindexBest->GetBlockTime())
                     pfrom->PushInventory(CInv(MSG_BLOCK, hashBestChain));
@@ -3704,7 +3704,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, CWallet* pwallet, bool fProofOfS
     // Add our coinbase tx as first transaction
     pblock->vtx.push_back(txNew);
 
-    // ppcoin: if coinstake available add coinstake tx
+    // sprouts: if coinstake available add coinstake tx
     static int64 nLastCoinStakeSearchTime = GetAdjustedTime();  // only initialized at startup
     CBlockIndex* pindexPrev = pindexBest;
 
@@ -3821,7 +3821,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, CWallet* pwallet, bool fProofOfS
             if (tx.nTime > GetAdjustedTime() || (pblock->IsProofOfStake() && tx.nTime > pblock->vtx[1].nTime))
                 continue;
 
-            // ppcoin: simplify transaction fee - allow free = false
+            // sprouts: simplify transaction fee - allow free = false
             int64 nMinFee = tx.GetMinFee(nBlockSize, false, GMF_BLOCK);
 
             // Connecting shouldn't fail due to dependency on other memory pool transactions
@@ -4042,7 +4042,7 @@ void BitcoinMiner(CWallet *pwallet, bool fProofOfStake)
 
         if (fProofOfStake)
         {
-            // ppcoin: if proof-of-stake block found then process block
+            // sprouts: if proof-of-stake block found then process block
             if (pblock->IsProofOfStake())
             {
                 if (!pblock->SignBlock(*pwalletMain))

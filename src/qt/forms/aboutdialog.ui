@@ -86,7 +86,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="label_ppcoin_copyright">
+      <widget class="QLabel" name="label_sprouts_copyright">
        <property name="text">
         <string>Copyright © 2011-2014 Sprouts Developers</string>
        </property>
