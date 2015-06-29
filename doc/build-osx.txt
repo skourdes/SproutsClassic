@@ -52,8 +52,8 @@ make -f makefile.osx
 make -f makefile.osx RELEASE=true 64BIT=true
 
 Run:
-  ./ppcoind --help  # for a list of command-line options.
+  ./sproutsd --help  # for a list of command-line options.
 Run
-  ./ppcoind -daemon # to start the bitcoin daemon.
+  ./sproutsd -daemon # to start the bitcoin daemon.
 Run
-  ./ppcoind help # When the daemon is running, to get a list of RPC commands
+  ./sproutsd help # When the daemon is running, to get a list of RPC commands

@@ -20,9 +20,9 @@ Setup
 -----
 Unpack the files into a directory and run:
  bin/32/ppcoin-qt (GUI, 32-bit)
- bin/32/ppcoind (headless, 32-bit)
+ bin/32/sproutsd (headless, 32-bit)
  bin/64/ppcoin-qt (GUI, 64-bit)
- bin/64/ppcoind (headless, 64-bit)
+ bin/64/sproutsd (headless, 64-bit)
 
 The software automatically finds other nodes to connect to.  You can
 enable Universal Plug and Play (UPnP) with your router/firewall
@@ -35,11 +35,11 @@ Upgrade
 -------
 All your existing coins/transactions should be intact with the upgrade.
 To upgrade from 0.3, first backup wallet
-ppcoind backupwallet <destination_backup_file>
-Then shutdown ppcoind by
-ppcoind stop
+sproutsd backupwallet <destination_backup_file>
+Then shutdown sproutsd by
+sproutsd stop
 Uninstall v0.3 client, download and install v0.4 client.
-Start up the new ppcoind (0.4.0).
+Start up the new sproutsd (0.4.0).
 If upgrade is performed after upgrade deadline then blockchain re-download
 is required.
 

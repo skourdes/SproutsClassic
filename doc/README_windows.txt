@@ -21,9 +21,9 @@ Setup
 After completing windows setup then run ppcoin-qt.
 Alternatively you can run windows command line (cmd) in ppcoin program dir.
   cd daemon
-  ppcoind
+  sproutsd
 You would need to create a configuration file ppcoin.conf in the default
-wallet directory. Grant access to ppcoind/ppcoin-qt in anti-virus and firewall
+wallet directory. Grant access to sproutsd/ppcoin-qt in anti-virus and firewall
 applications if necessary.
 
 The software automatically finds other nodes to connect to.  You can
@@ -37,9 +37,9 @@ Upgrade
 -------
 All your existing coins/transactions should be intact with the upgrade.
 To upgrade from 0.3, first backup wallet in qt menu or by command line
-ppcoind backupwallet <destination_backup_file>
-Then shutdown ppcoind by
-ppcoind stop
+sproutsd backupwallet <destination_backup_file>
+Then shutdown sproutsd by
+sproutsd stop
 Uninstall v0.3 client, download and install v0.4 client.
 If upgrade is performed after upgrade deadline, blockchain re-download is
 required.

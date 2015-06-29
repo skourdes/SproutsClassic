@@ -1645,8 +1645,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="5"/>
-        <source>Send command to -server or ppcoind</source>
-        <translation>发送命令到服务器或者 ppcoind
+        <source>Send command to -server or sproutsd</source>
+        <translation>发送命令到服务器或者 sproutsd
 </translation>
     </message>
     <message>
@@ -1675,8 +1675,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="10"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>指定 pid 文件 (默认为 ppcoind.pid)
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>指定 pid 文件 (默认为 sproutsd.pid)
 </translation>
     </message>
     <message>

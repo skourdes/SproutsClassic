@@ -1,6 +1,6 @@
 src/*.exe
 src/ppcoin
-src/ppcoind
+src/sproutsd
 src/test_ppcoin
 src/build.h
 .*.swp

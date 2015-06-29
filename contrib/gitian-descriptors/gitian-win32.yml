@@ -17,7 +17,7 @@ remotes:
 files:
 - "qt-win32-4.7.4-gitian.zip"
 - "boost-win32-1.47.0-gitian.zip"
-- "sprouts-deps-0.0.2.zip"
+- "ppcoin-deps-0.0.2.zip"
 script: |
   #
   mkdir $HOME/qt
@@ -59,10 +59,10 @@ script: |
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
-  make -f makefile.linux-mingw $MAKEOPTS DEPSDIR=$HOME/build ppcoind.exe USE_UPNP=1 DEBUGFLAGS="-frandom-seed=ppcoin"
-  i586-mingw32msvc-strip ppcoind.exe
+  make -f makefile.linux-mingw $MAKEOPTS DEPSDIR=$HOME/build sproutsd.exe USE_UPNP=1 DEBUGFLAGS="-frandom-seed=ppcoin"
+  i586-mingw32msvc-strip sproutsd.exe
   mkdir $OUTDIR/daemon
-  cp ppcoind.exe $OUTDIR/daemon
+  cp sproutsd.exe $OUTDIR/daemon
   cd ..
   mkdir nsis
   git archive HEAD | tar -x -C nsis

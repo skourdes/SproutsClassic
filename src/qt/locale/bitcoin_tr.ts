@@ -1645,8 +1645,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="5"/>
-        <source>Send command to -server or ppcoind</source>
-        <translation>-server ya da ppcoind&apos;ye komut gönder</translation>
+        <source>Send command to -server or sproutsd</source>
+        <translation>-server ya da sproutsd&apos;ye komut gönder</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="6"/>
@@ -1670,8 +1670,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="10"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>Pid dosyası belirt (varsayılan: ppcoind.pid)</translation>
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>Pid dosyası belirt (varsayılan: sproutsd.pid)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="11"/>

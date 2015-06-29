@@ -1640,8 +1640,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="5"/>
-        <source>Send command to -server or ppcoind</source>
-        <translation>Parancs küldése a -serverhez vagy a ppcoindhez
+        <source>Send command to -server or sproutsd</source>
+        <translation>Parancs küldése a -serverhez vagy a sproutsdhez
 </translation>
     </message>
     <message>
@@ -1670,8 +1670,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="10"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>pid-fájl (alapértelmezett: ppcoind.pid)
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>pid-fájl (alapértelmezett: sproutsd.pid)
 </translation>
     </message>
     <message>
