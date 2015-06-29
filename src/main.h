@@ -43,7 +43,7 @@ static const int COINBASE_MATURITY_PPC = 100;
 static const int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 static const int STAKE_TARGET_SPACING = 2.5 * 60; // 1-minute block spacing
 static const int STAKE_MIN_AGE = 60 * 60 * 24 * 5; // minimum age for coin age
-static const int STAKE_MAX_AGE = 60 * 60 * 24 * 365 * 9000; // stake age of full weight
+static const int STAKE_MAX_AGE = 60 * 60 * 24 * 365 * 65; // stake age of full weight
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
