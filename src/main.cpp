@@ -894,7 +894,7 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
     return pblockOrphan->hashPrevBlock;
 }
 
-int64 GetProofOfWorkReward(unsigned int nBits, int nHeight)
+int64 GetProofOfWorkReward(unsigned int nBits)
 {
     CBigNum bnSubsidyLimit = MAX_MINT_PROOF_OF_WORK;
     CBigNum bnTarget;
@@ -923,7 +923,8 @@ int64 GetProofOfWorkReward(unsigned int nBits, int nHeight)
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nBits=0x%08x nSubsidy=%"PRI64d"\n", FormatMoney(nSubsidy).c_str(), nBits, nSubsidy);
 
-    if(nHeight == 1){
+    const CBlockIndex* pIndex0 = GetLastBlockIndex(pindexBest, false);
+    if(pIndex0->nHeight == 1){
         return 1000000 * COIN;
     }
 
@@ -1930,7 +1931,12 @@ bool CBlock::CheckBlock() const
     // Check coinstake timestamp
     if (IsProofOfStake() && !CheckCoinStakeTimestamp(GetBlockTime(), (int64)vtx[1].nTime))
         return DoS(50, error("CheckBlock() : coinstake timestamp violation nTimeBlock=%u nTimeTx=%u", GetBlockTime(), vtx[1].nTime));
-
+    
+    // Check coinbase reward
+    if (vtx[0].GetValueOut() > (IsProofOfWork()? (GetProofOfWorkReward(nBits) - vtx[0].GetMinFee() + MIN_TX_FEE) : 0))
+        return DoS(50, error("CheckBlock() : coinbase reward exceeded %s > %s",
+                             FormatMoney(vtx[0].GetValueOut()).c_str(),
+                             FormatMoney(IsProofOfWork()? GetProofOfWorkReward(nBits) : 0).c_str()));
     // Check transactions
     BOOST_FOREACH(const CTransaction& tx, vtx)
     {
@@ -3873,7 +3879,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, CWallet* pwallet, bool fProofOfS
 
     }
     if (pblock->IsProofOfWork())
-        pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pblock->nBits, pindexPrev->nHeight+1);
+        pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pblock->nBits);
 
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
