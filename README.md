@@ -7,10 +7,10 @@ Peercoin Official Development Repo
 
 ### Peercoin Resources
 * Client and Source:
-[Client Binaries](http://sourceforge.net/projects/ppcoin/files/),
-[Source Code](https://github.com/ppcoin/ppcoin)
+[Client Binaries](http://sourceforge.net/projects/sprouts/files/),
+[Source Code](https://github.com/sprouts/sprouts)
 * Documentation: [Peercoin Whitepaper](http://peercoin.net/bin/peercoin-paper.pdf),
-[Peercoin Wiki](https://github.com/ppcoin/ppcoin/wiki)
+[Peercoin Wiki](https://github.com/sprouts/sprouts/wiki)
 * Help: 
 [Forum](http://www.peercointalk.org/),
 [Other Sites and Links...](http://www.peercointalk.org/index.php?topic=4.0;topicseen)

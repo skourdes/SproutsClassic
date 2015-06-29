@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = ppcoin-qt
+TARGET = sprouts-qt
 VERSION = 0.6.3.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
@@ -331,7 +331,7 @@ macx:HEADERS += src/qt/macdockiconhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/ppcoin.icns
+macx:ICON = src/qt/res/icons/sprouts.icns
 macx:TARGET = "PPcoin-Qt"
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
