@@ -16,7 +16,7 @@
 // a large 4-byte int at any alignment.
 
 // Public testnet message start
-// unsigned char pchMessageStartTestBitcoin[4] = { 0xcf, 0xbf, 0xb5, 0xda };
+// unsigned char pchMessageStartTestBitcoin[4] = { 0xcf, 0xbf, 0xb5, 0xfc };
 static unsigned char pchMessageStartTestOld[4] = { 0xcf, 0xe1, 0xf2, 0xfc };
 static unsigned char pchMessageStartTestNew[4] = { 0xcf, 0xf2, 0xc0, 0xfc };
 static unsigned int nMessageStartTestSwitchTime = 1346200000;

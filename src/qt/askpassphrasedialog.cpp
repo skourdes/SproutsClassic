@@ -26,6 +26,9 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
     ui->passEdit3->installEventFilter(this);
     ui->capsLabel->clear();
 
+    //Setup Keyboard
+    keyboard = new VirtualKeyboard(this);
+    ui->keyboardLayout->addWidget(keyboard);
     switch(mode)
     {
         case Encrypt: // Ask passphrase x2
@@ -60,6 +63,8 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
     connect(ui->passEdit1, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
     connect(ui->passEdit2, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
     connect(ui->passEdit3, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
+
+    connect(ui->keyboardToggle, SIGNAL(clicked()), keyboard, SLOT(toggleKeyboard()));
 }
 
 AskPassphraseDialog::~AskPassphraseDialog()
@@ -99,7 +104,7 @@ void AskPassphraseDialog::accept()
             break;
         }
         QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm wallet encryption"),
-                 tr("WARNING: If you encrypt your wallet and lose your passphrase, you will <b>LOSE ALL OF YOUR SPROUTS</b>!\nAre you sure you wish to encrypt your wallet?"),
+                 tr("WARNING: If you encrypt your wallet and lose your passphrase, you will <b>LOSE ALL OF YOUR PEERCOINS</b>!\nAre you sure you wish to encrypt your wallet?"),
                  QMessageBox::Yes|QMessageBox::Cancel,
                  QMessageBox::Cancel);
         if(retval == QMessageBox::Yes)
@@ -109,7 +114,7 @@ void AskPassphraseDialog::accept()
                 if(model->setWalletEncrypted(true, newpass1))
                 {
                     QMessageBox::warning(this, tr("Wallet encrypted"),
-                                         tr("Sprouts will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your sproutss from being stolen by malware infecting your computer."));
+                                         tr("Sprouts will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your Sproutss from being stolen by malware infecting your computer."));
                     QApplication::quit();
                 }
                 else
@@ -213,7 +218,7 @@ bool AskPassphraseDialog::event(QEvent *event)
     return QWidget::event(event);
 }
 
-bool AskPassphraseDialog::eventFilter(QObject *, QEvent *event)
+bool AskPassphraseDialog::eventFilter(QObject *object, QEvent *event)
 {
     /* Detect Caps Lock. 
      * There is no good OS-independent way to check a key state in Qt, but we
@@ -234,6 +239,10 @@ bool AskPassphraseDialog::eventFilter(QObject *, QEvent *event)
                 fCapsLock = false;
                 ui->capsLabel->clear();
             }
+        }
+    } else if (event->type() == QEvent::FocusIn) {
+        if (object->inherits("QLineEdit")) {
+            keyboard->setInput(object);
         }
     }
     return false;

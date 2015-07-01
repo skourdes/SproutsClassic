@@ -96,6 +96,9 @@ public:
     std::vector<unsigned char> Raw() const {
         return vchPubKey;
     }
+
+    bool RecoverCompact(const uint256 &hash, const std::vector<unsigned char>& vchSig);
+    bool IsFullyValid() const;
 };
 
 

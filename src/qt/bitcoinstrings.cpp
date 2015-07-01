@@ -15,8 +15,8 @@ QT_TRANSLATE_NOOP("bitcoin-core", "Send command to -server or sproutsd"),
 QT_TRANSLATE_NOOP("bitcoin-core", "List commands"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Get help for a command"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Options:"),
-QT_TRANSLATE_NOOP("bitcoin-core", "Specify configuration file (default: sprouts.conf)"),
-QT_TRANSLATE_NOOP("bitcoin-core", "Specify pid file (default: sproutsd.pid)"),
+QT_TRANSLATE_NOOP("bitcoin-core", "Specify configuration file (default: ppcoin.conf)"),
+QT_TRANSLATE_NOOP("bitcoin-core", "Specify pid file (default: ppcoind.pid)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Generate coins"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Don't generate coins"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Start minimized"),
@@ -104,7 +104,7 @@ QT_TRANSLATE_NOOP("bitcoin-core", ""
 "%s, you must set a rpcpassword in the configuration file:\n"
 " %s\n"
 "It is recommended you use the following random password:\n"
-"rpcuser=sproutsrpc\n"
+"rpcuser=peercoinrpc\n"
 "rpcpassword=%s\n"
 "(you do not need to remember this password)\n"
 "If the file does not exist, create it with owner-readable-only file "

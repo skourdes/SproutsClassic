@@ -45,7 +45,7 @@ namespace boost {
 #ifdef _WIN32_IE
 #undef _WIN32_IE
 #endif
-#define _WIN32_IE 0x0400
+#define _WIN32_IE 0x0501
 #define WIN32_LEAN_AND_MEAN 1
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -154,7 +154,7 @@ void RandAddSeedPerfmon()
     if (ret == ERROR_SUCCESS)
     {
         RAND_add(pdata, nSize, nSize/100.0);
-        memset(pdata, 0, nSize);
+        OPENSSL_cleanse(pdata, nSize);
         printf("%s RandAddSeed() %d bytes\n", DateTimeStrFormat(GetTime()).c_str(), nSize);
     }
 #endif
@@ -777,7 +777,7 @@ void FormatException(char* pszMessage, std::exception* pex, const char* pszThrea
     pszModule[0] = '\0';
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "sprouts";
+    const char* pszModule = "ppcoin";
 #endif
     if (pex)
         snprintf(pszMessage, 1000,
@@ -854,7 +854,7 @@ boost::filesystem::path GetDefaultDataDir()
 
     // Windows: C:\Documents and Settings\username\Application Data\Sprouts
     // Mac: ~/Library/Application Support/Sprouts
-    // Unix: ~/.sprouts
+    // Unix: ~/.ppcoin
 #ifdef WIN32
     // Windows
     return MyGetSpecialFolderPath(CSIDL_APPDATA, true) / "Sprouts";
@@ -872,7 +872,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "Sprouts";
 #else
     // Unix
-    return pathRet / ".sprouts";
+    return pathRet / ".ppcoin";
 #endif
 #endif
 }
@@ -916,7 +916,7 @@ boost::filesystem::path GetConfigFile()
 {
     namespace fs = boost::filesystem;
 
-    fs::path pathConfigFile(GetArg("-conf", "sprouts.conf"));
+    fs::path pathConfigFile(GetArg("-conf", "ppcoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
 }
@@ -952,7 +952,7 @@ boost::filesystem::path GetPidFile()
 {
     namespace fs = boost::filesystem;
 
-    fs::path pathPidFile(GetArg("-pid", "sproutsd.pid"));
+    fs::path pathPidFile(GetArg("-pid", "ppcoind.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
@@ -1117,6 +1117,8 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
         ss << "(" << boost::algorithm::join(comments, "; ") << ")";
     ss << "/";
     ss << "Sprouts:" << FormatVersion(PPCOIN_VERSION);
+    ss << "/";
+    ss << "Sprouts:" << FormatVersion(PEERUNITY_VERSION);
     ss << "(" << CLIENT_BUILD << ")/";
     return ss.str();
 }
@@ -1205,7 +1207,7 @@ boost::filesystem::path static GetAutostartDir()
 
 boost::filesystem::path static GetAutostartFilePath()
 {
-    return GetAutostartDir() / "sprouts.desktop";
+    return GetAutostartDir() / "ppcoin.desktop";
 }
 
 bool GetStartOnSystemStartup()

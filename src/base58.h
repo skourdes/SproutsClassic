@@ -191,7 +191,7 @@ protected:
     {
         // zero the memory, as it may contain sensitive data
         if (!vchData.empty())
-            memset(&vchData[0], 0, vchData.size());
+            OPENSSL_cleanse(&vchData[0], vchData.size());
     }
 
     void SetData(int nVersionIn, const void* pdata, size_t nSize)
@@ -222,7 +222,7 @@ public:
         vchData.resize(vchTemp.size() - 1);
         if (!vchData.empty())
             memcpy(&vchData[0], &vchTemp[1], vchData.size());
-        memset(&vchTemp[0], 0, vchTemp.size());
+        OPENSSL_cleanse(&vchTemp[0], vchData.size());
         return true;
     }
 
@@ -277,8 +277,8 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 63,  // sprouts: addresses begin with 'S'
-        SCRIPT_ADDRESS = 125, // sprouts: addresses begin with 's'
+        PUBKEY_ADDRESS = 63,  // ppcoin: addresses begin with 'P'
+        SCRIPT_ADDRESS = 125, // ppcoin: addresses begin with 'p'
         PUBKEY_ADDRESS_TEST = 111,
         SCRIPT_ADDRESS_TEST = 196,
     };

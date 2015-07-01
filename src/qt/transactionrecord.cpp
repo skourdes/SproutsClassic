@@ -43,9 +43,16 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
 
     if (showTransaction(wtx))
     {
-        if (wtx.IsCoinStake()) // sprouts: coinstake transaction
+        if (wtx.IsCoinStake()) // ppcoin: coinstake transaction
         {
-            parts.append(TransactionRecord(hash, nTime, TransactionRecord::StakeMint, "", -nDebit, wtx.GetValueOut()));
+            TransactionRecord sub(hash, nTime, TransactionRecord::StakeMint, "", -nDebit, wtx.GetValueOut());
+            CTxDestination address;
+            CTxOut txout = wtx.vout[1];
+
+            if(ExtractDestination(txout.scriptPubKey, address) && IsMine(*wallet, address))
+                sub.address = CBitcoinAddress(address).ToString();
+
+            parts.append(sub);
         }
         else if (nNet > 0 || wtx.IsCoinBase())
         {
@@ -54,43 +61,29 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
             //
             BOOST_FOREACH(const CTxOut& txout, wtx.vout)
             {
-                TransactionRecord sub(hash, nTime);
-                CTxDestination address;
-                sub.idx = parts.size(); // sequence number
-                sub.credit = txout.nValue;
-                if (wtx.IsCoinBase())
-                {
-                    // Generated
-                    sub.type = TransactionRecord::Generated;
-                }
-                else if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*wallet, address))
-                {
-                    // Received by Bitcoin Address
-                    sub.type = TransactionRecord::RecvWithAddress;
-                    sub.address = CBitcoinAddress(address).ToString();
-                }
-                else
+                if(wallet->IsMine(txout))
                 {
                     TransactionRecord sub(hash, nTime);
-                    CBitcoinAddress address;
+                    CTxDestination address;
                     sub.idx = parts.size(); // sequence number
                     sub.credit = txout.nValue;
-                    if (wtx.IsCoinBase())
+
+                    if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*wallet, address))
                     {
-                        // Generated
-                        sub.type = TransactionRecord::Generated;
+                        // Received by Bitcoin Address
+                        sub.type = TransactionRecord::RecvWithAddress;
+                        sub.address = CBitcoinAddress(address).ToString();
                     }
-                    // else if (ExtractAddress(txout.scriptPubKey, address) && wallet->HaveKey(address))
-                    // {
-                    //     // Received by Bitcoin Address
-                    //     sub.type = TransactionRecord::RecvWithAddress;
-                    //     sub.address = address.ToString();
-                    // }
                     else
                     {
                         // Received by IP connection (deprecated features), or a multisignature or other non-simple transaction
                         sub.type = TransactionRecord::RecvFromOther;
                         sub.address = mapValue["from"];
+                    }
+                    if (wtx.IsCoinBase())
+                    {
+                        // Generated
+                        sub.type = TransactionRecord::Generated;
                     }
 
                     parts.append(sub);
@@ -258,6 +251,6 @@ bool TransactionRecord::statusUpdateNeeded()
 
 std::string TransactionRecord::getTxID()
 {
-    return hash.ToString() + strprintf("-%03d", idx);
+    return hash.ToString(); // + strprintf("-%03d", idx);
 }
 
