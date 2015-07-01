@@ -2598,13 +2598,13 @@ Ini berarti diperlukan biaya minimal %2.</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="18"/>
-        <source>Specify configuration file (default: ppcoin.conf)</source>
-        <translation>File konfigurasi ditentukan (default: ppcoin.conf)</translation>
+        <source>Specify configuration file (default: sprouts.conf)</source>
+        <translation>File konfigurasi ditentukan (default: sprouts.conf)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="19"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>Menentukan file pid (default: ppcoind.pid)</translation>
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>Menentukan file pid (default: sproutsd.pid)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="20"/>

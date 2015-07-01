@@ -2609,13 +2609,13 @@ Bedragen kleiner dan 0.546 keer de minimum vergoeding worden weergegeven als STO
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="18"/>
-        <source>Specify configuration file (default: ppcoin.conf)</source>
-        <translation>Configuratiebestand specificeren (standaard: ppcoin.conf)</translation>
+        <source>Specify configuration file (default: sprouts.conf)</source>
+        <translation>Configuratiebestand specificeren (standaard: sprouts.conf)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="19"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>Specifieer pid-bestand (standaard: ppcoind.pid)
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>Specifieer pid-bestand (standaard: sproutsd.pid)
 </translation>
     </message>
     <message>

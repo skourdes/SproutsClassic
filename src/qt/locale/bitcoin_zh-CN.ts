@@ -2609,13 +2609,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="18"/>
-        <source>Specify configuration file (default: ppcoin.conf)</source>
-        <translation>指定配置文件 (默认为 ppcoin.conf)</translation>
+        <source>Specify configuration file (default: sprouts.conf)</source>
+        <translation>指定配置文件 (默认为 sprouts.conf)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="19"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>指定 pid 文件 (默认为 ppcoind.pid)
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>指定 pid 文件 (默认为 sproutsd.pid)
 </translation>
     </message>
     <message>

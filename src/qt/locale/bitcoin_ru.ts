@@ -2618,12 +2618,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="18"/>
-        <source>Specify configuration file (default: ppcoin.conf)</source>
-        <translation>Указать файл конфигурации системы (default: ppcoin.conf)</translation>
+        <source>Specify configuration file (default: sprouts.conf)</source>
+        <translation>Указать файл конфигурации системы (default: sprouts.conf)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="19"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
+        <source>Specify pid file (default: sproutsd.pid)</source>
         <translation>Указать pid-файл (по умолчанию: Sprouts.pid)</translation>
     </message>
     <message>

@@ -2606,13 +2606,13 @@ Das bedeutet, dass eine Gebühr von mindestens %2 erforderlich ist.</translation
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="18"/>
-        <source>Specify configuration file (default: ppcoin.conf)</source>
-        <translation>Konfigurations-Datei angeben (Standard: ppcoin.conf)</translation>
+        <source>Specify configuration file (default: sprouts.conf)</source>
+        <translation>Konfigurations-Datei angeben (Standard: sprouts.conf)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="19"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>PID-Datei angeben (Standard: ppcoind.pid)</translation>
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>PID-Datei angeben (Standard: sproutsd.pid)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="20"/>

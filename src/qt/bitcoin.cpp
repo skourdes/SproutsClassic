@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
     // Do this early as we don't want to bother initializing if we are just calling IPC
     for (int i = 1; i < argc; i++)
     {
-        if (strlen(argv[i]) >= 7 && strncasecmp(argv[i], "ppcoin:", 7) == 0)
+        if (strlen(argv[i]) >= 7 && strncasecmp(argv[i], "sprouts:", 7) == 0)
         {
             const char *strURI = argv[i];
             try {
@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
     // Application identification (must be set before OptionsModel is initialized,
     // as it is used to locate QSettings)
     app.setOrganizationName("Sprouts");
-    app.setOrganizationDomain("ppcoin.org");
+    app.setOrganizationDomain("sprouts.org");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
         app.setApplicationName("Sprouts-Qt-testnet");
     else
@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
                 // Check for URI in argv
                 for (int i = 1; i < argc; i++)
                 {
-                    if (strlen(argv[i]) >= 7 && strncasecmp(argv[i], "ppcoin:", 7) == 0)
+                    if (strlen(argv[i]) >= 7 && strncasecmp(argv[i], "sprouts:", 7) == 0)
                     {
                         const char *strURI = argv[i];
                         try {

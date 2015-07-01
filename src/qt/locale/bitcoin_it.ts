@@ -2611,13 +2611,13 @@ Questo significa che è necessaria una tariffa di almeno %2.</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="18"/>
-        <source>Specify configuration file (default: ppcoin.conf)</source>
-        <translation>Specifia il file di configurazione (default: ppcoin.conf)</translation>
+        <source>Specify configuration file (default: sprouts.conf)</source>
+        <translation>Specifia il file di configurazione (default: sprouts.conf)</translation>
     </message>
     <message>
         <location filename="../bitcoinstrings.cpp" line="19"/>
-        <source>Specify pid file (default: ppcoind.pid)</source>
-        <translation>Specifica il file pid (default: ppcoind.pid)
+        <source>Specify pid file (default: sproutsd.pid)</source>
+        <translation>Specifica il file pid (default: sproutsd.pid)
 </translation>
     </message>
     <message>
