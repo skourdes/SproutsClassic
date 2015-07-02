@@ -156,20 +156,10 @@ void AddressBookPage::onEditAction()
 
 void AddressBookPage::on_signMessage_clicked()
 {
-    QTableView *table = ui->tableView;
-    QModelIndexList indexes = table->selectionModel()->selectedRows(AddressTableModel::Address);
-    QString addr;
-
-    foreach (QModelIndex index, indexes)
-    {
-        QVariant address = index.data();
-        addr = address.toString();
-    }
-
     QObject *qoGUI = parent()->parent();
     BitcoinGUI *gui = qobject_cast<BitcoinGUI *>(qoGUI);
     if (gui)
-        gui->gotoMessagePage(addr);
+        gui->gotoMessagePage();
 }
 
 void AddressBookPage::on_newAddressButton_clicked()

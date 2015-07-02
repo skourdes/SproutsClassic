@@ -1,4 +1,5 @@
 // Copyright (c) 2012 The Bitcoin developers
+// Copyright (c) 2014 The Sprouts developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <string>
@@ -6,12 +7,17 @@
 #include "version.h"
 
 // Name of client reported in the 'version' message. Report the same name
-// for both bitcoind and bitcoin-qt, to make it harder for attackers to
+// for both sproutsd and sprouts(-qt), to make it harder for attackers to
 // target servers or GUI users specifically.
+
+// For the current run of Sprouts releases, the client name should be selected from
+// the list of ancient coinage, from oldest known to more recent. 
+// You can find ideas for future client names, here: http://en.wikipedia.org/wiki/List_of_historical_currencies
+
 const std::string CLIENT_NAME("Satoshi");
 
 // Client version number
-#define CLIENT_VERSION_SUFFIX   "-beta"
+#define CLIENT_VERSION_SUFFIX   ""
 
 
 // The following part of the code determines the CLIENT_BUILD variable.
@@ -33,9 +39,10 @@ const std::string CLIENT_NAME("Satoshi");
 #    include "build.h"
 #endif
 
-// git will put "#define GIT_ARCHIVE 1" on the next line inside archives. $Format:%n#define GIT_ARCHIVE 1$
+// git will put "#define GIT_ARCHIVE 1" on the next line inside archives. 
+#define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
-#    define GIT_COMMIT_ID "$Format:%h$"
+#    define GIT_COMMIT_ID "d0cbc83"
 #    define GIT_COMMIT_DATE "$Format:%cD"
 #endif
 
@@ -49,9 +56,9 @@ const std::string CLIENT_NAME("Satoshi");
 
 #ifndef BUILD_DESC
 #    ifdef GIT_COMMIT_ID
-#        define BUILD_DESC BUILD_DESC_FROM_COMMIT(PPCOIN_VERSION_MAJOR, PPCOIN_VERSION_MINOR, PPCOIN_VERSION_REVISION, PPCOIN_VERSION_BUILD, GIT_COMMIT_ID)
+#        define BUILD_DESC BUILD_DESC_FROM_COMMIT(PEERUNITY_VERSION_MAJOR, PEERUNITY_VERSION_MINOR, PEERUNITY_VERSION_REVISION, PEERUNITY_VERSION_BUILD, GIT_COMMIT_ID)
 #    else
-#        define BUILD_DESC BUILD_DESC_FROM_UNKNOWN(PPCOIN_VERSION_MAJOR, PPCOIN_VERSION_MINOR, PPCOIN_VERSION_REVISION, PPCOIN_VERSION_BUILD)
+#        define BUILD_DESC BUILD_DESC_FROM_UNKNOWN(PEERUNITY_VERSION_MAJOR, PEERUNITY_VERSION_MINOR, PEERUNITY_VERSION_REVISION, PEERUNITY_VERSION_BUILD)
 #    endif
 #endif
 

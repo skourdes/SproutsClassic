@@ -31,6 +31,9 @@ public slots:
 signals:
     void transactionClicked(const QModelIndex &index);
 
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+
 private:
     Ui::OverviewPage *ui;
     WalletModel *model;
@@ -39,6 +42,7 @@ private:
     qint64 currentUnconfirmedBalance;
 
     TxViewDelegate *txdelegate;
+    unsigned int numDisplayedTransactions();
 
 private slots:
     void displayUnitChanged();

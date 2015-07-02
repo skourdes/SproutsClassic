@@ -122,6 +122,7 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
     ui->listTransactions->setSelectionMode(QAbstractItemView::NoSelection);
     ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
+    ui->listTransactions->setResizeMode(QListView::Adjust);
     ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SIGNAL(transactionClicked(QModelIndex)));
@@ -143,6 +144,19 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
     ui->labelUnconfirmed->setText(BitcoinUnits::formatWithUnit(unit, unconfirmedBalance));
 }
 
+unsigned int OverviewPage::numDisplayedTransactions()
+{
+    unsigned int numItems;
+
+    numItems = height() / DECORATION_SIZE;
+    if(numItems > NUM_ITEMS)
+        numItems--;
+    else if(numItems < NUM_ITEMS)
+        numItems = NUM_ITEMS;
+
+    return numItems;
+}
+
 void OverviewPage::setNumTransactions(int count)
 {
     ui->labelNumTransactions->setText(QLocale::system().toString(count));
@@ -156,7 +170,7 @@ void OverviewPage::setModel(WalletModel *model)
         // Set up transaction list
         TransactionFilterProxy *filter = new TransactionFilterProxy();
         filter->setSourceModel(model->getTransactionTableModel());
-        filter->setLimit(NUM_ITEMS);
+        filter->setLimit(numDisplayedTransactions());
         filter->setDynamicSortFilter(true);
         filter->setSortRole(Qt::EditRole);
         filter->sort(TransactionTableModel::Date, Qt::DescendingOrder);
@@ -184,4 +198,14 @@ void OverviewPage::displayUnitChanged()
 
     txdelegate->unit = model->getOptionsModel()->getDisplayUnit();
     ui->listTransactions->update();
+}
+
+void OverviewPage::resizeEvent(QResizeEvent *event)
+{
+    if(!model || !ui->listTransactions->model())
+        return;
+
+    TransactionFilterProxy *filter = (TransactionFilterProxy *) ui->listTransactions->model();
+    filter->setLimit(numDisplayedTransactions());
+    QWidget::resizeEvent(event);
 }

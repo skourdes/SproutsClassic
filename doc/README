@@ -1,6 +1,6 @@
-Peercoin (Sprouts) 0.4.0 BETA
+Sprouts (Sprouts) 0.4.0 BETA
 
-Copyright (c) 2011-2014 Peercoin (Sprouts) Developers
+Copyright (c) 2011-2014 Sprouts (Sprouts) Developers
 Distributed under the MIT/X11 software license, see the accompanying
 file license.txt or http://www.opensource.org/licenses/mit-license.php.
 This product includes software developed by the OpenSSL Project for use in

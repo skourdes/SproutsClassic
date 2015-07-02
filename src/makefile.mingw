@@ -30,24 +30,23 @@
 #   Then
 #     make
 #
-# - Build Boost C++ library version: 1.47.0
+# - Build Boost C++ library version: 1.55.0
 #   download from http://www.boost.org/users/download/
-#   Extract to c:\boost-1.47.0-mgw
+#   Extract to c:\boost-1.55.0-mgw
 #   Install Boost.Build:
 #     cd tools\build\v2
 #     bootstrap.bat
 #     b2 install --prefix=BOOST_BUILD_INSTALL_DIR
 #   Add BOOST_BUILD_INSTALL_DIR to your PATH system environment variable
 #   Build boost library in MSDOS:
-#     cd c:\boost-1.47.0-mgw
+#     cd c:\boost-1.55.0-mgw
 #     bjam toolset=gcc --build-type=complete stage
 #
-# - Build Miniupnp library version: 1.6
+# - Build Miniupnp library version: 1.9
 #   download from http://miniupnp.free.fr/files/
-#   file name is miniupnpc-1.6.20120509.tar.gz
-#   Extract to c:\miniupnpc-1.6-mgw
+#   Extract to c:\miniupnpc-1.9-mgw
 #   In MinGW MSYS shell:
-#     cd /c/miniupnpc-1.6-mgw
+#     cd /c/miniupnpc-1.9-mgw
 #     make -f Makefile.mingw
 #     mkdir miniupnpc
 #     cp *.h miniupnpc/
@@ -80,7 +79,7 @@ LIBS= \
  -l ssl \
  -l crypto
 
-DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
+DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DUSE_IPV6
 DEBUGFLAGS=-g
 CFLAGS=-mthreads -O2 -w -Wno-invalid-offsetof -Wformat $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 
@@ -112,6 +111,7 @@ OBJS= \
     obj/main.o \
     obj/net.o \
     obj/protocol.o \
+    obj/kernelrecord.o \
     obj/bitcoinrpc.o \
     obj/rpcdump.o \
     obj/script.o \
@@ -135,11 +135,11 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 obj-test/%.o: test/%.cpp $(HEADERS)
 	g++ -c $(TESTDEFS) $(CFLAGS) -o $@ $<
 
-test_bitcoin.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_sprouts.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	g++ $(CFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework $(LIBS)
 
 clean:
-	-del /Q sproutsd test_bitcoin
+	-del /Q sproutsd test_sprouts
 	-del /Q obj\*
 	-del /Q obj-test\*
 	-del /Q build.h

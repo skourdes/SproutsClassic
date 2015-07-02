@@ -12,7 +12,6 @@ using namespace std;
 using namespace boost;
 
 int nGotIRCAddresses = 0;
-bool fGotExternalIP = false;
 
 void ThreadIRCSeed2(void* parg);
 
@@ -216,13 +215,12 @@ void ThreadIRCSeed2(void* parg)
     printf("ThreadIRCSeed started\n");
     int nErrorWait = 10;
     int nRetryWait = 10;
-    bool fNameInUse = false;
 
     while (!fShutdown)
     {
-        CService addrConnect("92.243.23.21", 6667); // irc.lfnet.org
+        CService addrConnect("chat.freenode.net", 6667); // irc.lfnet.org
 
-        CService addrIRC("irc.lfnet.org", 6667, true);
+        CService addrIRC("chat.freenode.net", 6667, true);
         if (addrIRC.IsValid())
             addrConnect = addrIRC;
 
@@ -248,9 +246,10 @@ void ThreadIRCSeed2(void* parg)
                 return;
         }
 
+        CService addrLocal;
         string strMyName;
-        if (addrLocalHost.IsRoutable() && !fUseProxy && !fNameInUse)
-            strMyName = EncodeAddress(addrLocalHost);
+        if (GetLocal(addrLocal, &addrConnect))
+            strMyName = EncodeAddress(GetLocalAddress(&addrConnect));
         else
             strMyName = strprintf("x%u", GetRand(1000000000));
 
@@ -265,7 +264,6 @@ void ThreadIRCSeed2(void* parg)
             if (nRet == 2)
             {
                 printf("IRC name already in use\n");
-                fNameInUse = true;
                 Wait(10);
                 continue;
             }
@@ -285,9 +283,8 @@ void ThreadIRCSeed2(void* parg)
             if (!fUseProxy && addrFromIRC.IsRoutable())
             {
                 // IRC lets you to re-nick
-                fGotExternalIP = true;
-                addrLocalHost.SetIP(addrFromIRC);
-                strMyName = EncodeAddress(addrLocalHost);
+                AddLocal(addrFromIRC, LOCAL_IRC);
+                strMyName = EncodeAddress(GetLocalAddress(&addrConnect));
                 Send(hSocket, strprintf("NICK %s\r", strMyName.c_str()).c_str());
             }
         }
@@ -297,9 +294,9 @@ void ThreadIRCSeed2(void* parg)
             Send(hSocket, "WHO #bitcoinTEST\r");
         } else {
             // randomly join #bitcoin00-#bitcoin99
-            int channel_number = GetRandInt(100);
-            Send(hSocket, strprintf("JOIN #bitcoin%02d\r", channel_number).c_str());
-            Send(hSocket, strprintf("WHO #bitcoin%02d\r", channel_number).c_str());
+            int channel_number = GetRandInt(4);
+            Send(hSocket, strprintf("JOIN #sprouts%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("WHO #sprouts%02d\r", channel_number).c_str());
         }
 
         int64 nStart = GetTime();
