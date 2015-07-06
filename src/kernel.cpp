@@ -30,6 +30,7 @@ unsigned int nModifierInterval = MODIFIER_INTERVAL;
 static std::map<int, unsigned int> mapStakeModifierCheckpoints =
     boost::assign::map_list_of
     ( 0, 0x0e00670bu )
+    (10130, 0x091e6bb8b)
     ;
 
 // Whether the given coinstake is subject to new v0.3 protocol
