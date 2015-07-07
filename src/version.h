@@ -17,7 +17,7 @@
 #define PEERUNITY_VERSION_MAJOR       0
 #define PEERUNITY_VERSION_MINOR       1
 #define PEERUNITY_VERSION_REVISION    2
-#define PEERUNITY_VERSION_BUILD       0
+#define PEERUNITY_VERSION_BUILD       2
 
 static const int PEERUNITY_VERSION =
                            1000000 * PEERUNITY_VERSION_MAJOR
@@ -28,8 +28,8 @@ static const int PEERUNITY_VERSION =
 // sprouts version - reference for code tracking
 #define PPCOIN_VERSION_MAJOR       0
 #define PPCOIN_VERSION_MINOR       4
-#define PPCOIN_VERSION_REVISION    0
-#define PPCOIN_VERSION_BUILD       0
+#define PPCOIN_VERSION_REVISION    2
+#define PPCOIN_VERSION_BUILD       2
 
 static const int PPCOIN_VERSION =
                            1000000 * PPCOIN_VERSION_MAJOR

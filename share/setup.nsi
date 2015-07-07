@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 0.4.0
+!define VERSION 0.4.2
 !define COMPANY "Sprouts project"
 !define URL http://github.com/sprouts/sprouts/
 
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile sprouts-0.4.0-win32-setup.exe
+OutFile sprouts-0.4.2-win32-setup.exe
 InstallDir $PROGRAMFILES\Sprouts
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 0.4.0.0
+VIProductVersion 0.4.2.2
 VIAddVersionKey ProductName Sprouts
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
