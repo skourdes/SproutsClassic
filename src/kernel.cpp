@@ -31,6 +31,7 @@ static std::map<int, unsigned int> mapStakeModifierCheckpoints =
     boost::assign::map_list_of
     ( 0, 0x0e00670bu )
     ( 11800, 0x03c7a0b31)
+    ( 35893, 0x0e49ce206)
     ;
 
 // Whether the given coinstake is subject to new v0.3 protocol
