@@ -73,7 +73,7 @@ void Shutdown(void* parg)
         boost::filesystem::remove(GetPidFile());
         UnregisterWallet(pwalletMain);
         delete pwalletMain;
-        CreateThread(ExitTimeout, NULL);
+        CreateThread(ExitTimeout, nullptr);
         Sleep(50);
         printf("Sprouts exiting\n\n");
         fExit = true;
@@ -128,10 +128,10 @@ bool AppInit(int argc, char* argv[])
     catch (std::exception& e) {
         PrintException(&e, "AppInit()");
     } catch (...) {
-        PrintException(NULL, "AppInit()");
+        PrintException(nullptr, "AppInit()");
     }
     if (!fRet)
-        Shutdown(NULL);
+        Shutdown(nullptr);
     return fRet;
 }
 
@@ -167,9 +167,9 @@ bool AppInit2(int argc, char* argv[])
     sa.sa_handler = HandleSIGTERM;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
-    sigaction(SIGTERM, &sa, NULL);
-    sigaction(SIGINT, &sa, NULL);
-    sigaction(SIGHUP, &sa, NULL);
+    sigaction(SIGTERM, &sa, nullptr);
+    sigaction(SIGINT, &sa, nullptr);
+    sigaction(SIGHUP, &sa, nullptr);
 #endif
 
     //
@@ -679,11 +679,11 @@ bool AppInit2(int argc, char* argv[])
 
     RandAddSeedPerfmon();
 
-    if (!CreateThread(StartNode, NULL))
+    if (!CreateThread(StartNode, nullptr))
         ThreadSafeMessageBox(_("Error: CreateThread(StartNode) failed"), _("Sprouts"), wxOK | wxMODAL);
 
     if (fServer)
-        CreateThread(ThreadRPCServer, NULL);
+        CreateThread(ThreadRPCServer, nullptr);
 
 #ifdef QT_GUI
     if (GetStartOnSystemStartup())

@@ -102,7 +102,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>SPRTS</string>
+               <string>SPRTSC</string>
               </property>
               <property name="buddy">
                <cstring>lnReqAmount</cstring>

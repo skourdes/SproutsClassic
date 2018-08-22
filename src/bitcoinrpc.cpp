@@ -44,7 +44,7 @@ void ThreadRPCServer2(void* parg);
 
 // Key used by getwork/getblocktemplate miners.
 // Allocated in StartRPCThreads, free'd in StopRPCThreads
-CReserveKey* pMiningKey = NULL;
+CReserveKey* pMiningKey = nullptr;
 
 static std::string strRPCUserColonPass;
 
@@ -62,13 +62,13 @@ Object JSONRPCError(int code, const string& message)
     return error;
 }
 
-double GetDifficulty(const CBlockIndex* blockindex = NULL)
+double GetDifficulty(const CBlockIndex* blockindex = nullptr)
 {
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
-    if (blockindex == NULL)
+    if (blockindex == nullptr)
     {
-        if (pindexBest == NULL)
+        if (pindexBest == nullptr)
             return 1.0;
         else
             blockindex = GetLastBlockIndex(pindexBest, false);
@@ -80,7 +80,7 @@ double GetDifficulty(const CBlockIndex* blockindex = NULL)
 int64 AmountFromValue(const Value& value)
 {
     double dAmount = value.get_real();
-    if (dAmount <= 0.0 || dAmount > MAX_MONEY)
+    if (dAmount <= 0.0 || dAmount > MAX_MONEY_2)
         throw JSONRPCError(-3, "Invalid amount");
     int64 nAmount = roundint64(dAmount * COIN);
     if (!MoneyRange(nAmount))
@@ -1701,7 +1701,7 @@ Value listsinceblock(const Array& params, bool fHelp)
             "listsinceblock [blockhash] [target-confirmations]\n"
             "Get all transactions in blocks since block [blockhash], or all transactions if omitted");
 
-    CBlockIndex *pindex = NULL;
+    CBlockIndex *pindex = nullptr;
     int target_confirms = 1;
 
     if (params.size() > 0)
@@ -1907,7 +1907,7 @@ Value walletpassphrase(const Array& params, bool fHelp)
             "walletpassphrase <passphrase> <timeout>\n"
             "Stores the wallet decryption key in memory for <timeout> seconds.");
 
-    CreateThread(ThreadTopUpKeyPool, NULL);
+    CreateThread(ThreadTopUpKeyPool, nullptr);
     int64* pnSleepTime = new int64(params[1].get_int64());
     CreateThread(ThreadCleanWalletPassphrase, pnSleepTime);
 
@@ -2233,7 +2233,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             (nTransactionsUpdated != nTransactionsUpdatedLast && GetTime() - nStart > 5))
         {
             // Clear pindexPrev so future calls make a new block, despite any failures from here on
-            pindexPrev = NULL;
+            pindexPrev = nullptr;
 
             // Store the pindexBest used before CreateNewBlock, to avoid races
             nTransactionsUpdatedLast = nTransactionsUpdated;
@@ -2244,7 +2244,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             if(pblock)
             {
                 delete pblock;
-                pblock = NULL;
+                pblock = nullptr;
             }
             pblock = CreateNewBlock(*pMiningKey, pwalletMain);
             if (!pblock)
@@ -3175,7 +3175,7 @@ Value sendrawtransaction(const Array& params, bool fHelp)
         if (!tx.AcceptToMemoryPool(txdb, fCheckInputs))
             throw JSONRPCError(-22, "TX rejected");
 
-        SyncWithWallets(tx, NULL, true);
+        SyncWithWallets(tx, nullptr, true);
     }
     RelayMessage(CInv(MSG_TX, hashTx), tx);
 
@@ -3393,7 +3393,7 @@ const CRPCCommand *CRPCTable::operator[](string name) const
 {
     map<string, const CRPCCommand*>::const_iterator it = mapCommands.find(name);
     if (it == mapCommands.end())
-        return NULL;
+        return nullptr;
     return (*it).second;
 }
 
@@ -3427,7 +3427,7 @@ string rfc1123Time()
     time_t now;
     time(&now);
     struct tm* now_gmt = gmtime(&now);
-    string locale(setlocale(LC_TIME, NULL));
+    string locale(setlocale(LC_TIME, nullptr));
     setlocale(LC_TIME, "C"); // we want posix (aka "C") weekday/month strings
     strftime(buffer, sizeof(buffer), "%a, %d %b %Y %H:%M:%S +0000", now_gmt);
     setlocale(LC_TIME, locale.c_str());
@@ -3676,10 +3676,10 @@ void ThreadRPCServer(void* parg)
         PrintException(&e, "ThreadRPCServer()");
     } catch (...) {
         vnThreadsRunning[THREAD_RPCSERVER]--;
-        PrintException(NULL, "ThreadRPCServer()");
+        PrintException(nullptr, "ThreadRPCServer()");
     }
 
-    delete pMiningKey; pMiningKey = NULL;
+    delete pMiningKey; pMiningKey = nullptr;
 
     printf("ThreadRPCServer exiting\n");
 }
@@ -3787,7 +3787,7 @@ void ThreadRPCServer2(void* parg)
         return;
     }
 
-    ssl::context context(io_service, ssl::context::sslv23);
+    ssl::context context(ssl::context::sslv23);
     if (fUseSSL)
     {
         context.set_options(ssl::context::no_sslv2);
@@ -3803,7 +3803,7 @@ void ThreadRPCServer2(void* parg)
         else printf("ThreadRPCServer ERROR: missing server private key file %s\n", pathPKFile.string().c_str());
 
         string strCiphers = GetArg("-rpcsslciphers", "TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH");
-        SSL_CTX_set_cipher_list(context.impl(), strCiphers.c_str());
+        SSL_CTX_set_cipher_list(context.native_handle(), strCiphers.c_str());
     }
 
     while (true)
@@ -3934,7 +3934,7 @@ Object CallRPC(const string& strMethod, const Array& params)
     // Connect to localhost
     bool fUseSSL = GetBoolArg("-rpcssl");
     asio::io_service io_service;
-    ssl::context context(io_service, ssl::context::sslv23);
+    ssl::context context(ssl::context::sslv23);
     context.set_options(ssl::context::no_sslv2);
     SSLStream sslStream(io_service, context);
     SSLIOStreamDevice d(sslStream, fUseSSL);
@@ -4135,7 +4135,7 @@ int CommandLineRPC(int argc, char *argv[])
     }
     catch (...)
     {
-        PrintException(NULL, "CommandLineRPC()");
+        PrintException(nullptr, "CommandLineRPC()");
     }
 
     if (strPrint != "")

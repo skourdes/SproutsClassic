@@ -66,7 +66,7 @@ public slots:
 
 };
 
-#include "optionsdialog.moc"
+
 
 OptionsDialog::OptionsDialog(QWidget *parent):
     QDialog(parent), contents_widget(0), pages_widget(0),
@@ -214,7 +214,7 @@ MainOptionsPage::MainOptionsPage(QWidget *parent):
     proxy_hbox->addStretch(1);
 
     layout->addLayout(proxy_hbox);
-    QLabel *fee_help = new QLabel(tr("Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTS fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment."));
+    QLabel *fee_help = new QLabel(tr("Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTSC fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment."));
     fee_help->setWordWrap(true);
     layout->addWidget(fee_help);
 
@@ -302,3 +302,4 @@ void DisplayOptionsPage::setMapper(MonitoredDataMapper *mapper)
     mapper->addMapping(display_addresses, OptionsModel::DisplayAddresses);
     mapper->addMapping(coin_control_features, OptionsModel::CoinControlFeatures);
 }
+#include "optionsdialog.moc"

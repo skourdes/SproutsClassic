@@ -28,7 +28,7 @@ const struct {
     {"cmd-reply", ":/icons/tx_output"},
     {"cmd-error", ":/icons/tx_output"},
     {"misc", ":/icons/tx_inout"},
-    {NULL, NULL}
+    {nullptr, nullptr}
 };
 
 /* Object for executing console RPC commands in a separate thread.
@@ -43,7 +43,7 @@ signals:
     void reply(int category, const QString &command);
 };
 
-#include "rpcconsole.moc"
+
 
 void RPCExecutor::start()
 {
@@ -414,3 +414,4 @@ void RPCConsole::scrollToEnd()
     QScrollBar *scrollbar = ui->messagesWidget->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
 }
+#include "rpcconsole.moc"

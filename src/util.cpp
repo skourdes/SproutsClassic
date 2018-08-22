@@ -110,7 +110,7 @@ public:
     ~CInit()
     {
         // Shutdown openssl library multithreading support
-        CRYPTO_set_locking_callback(NULL);
+        CRYPTO_set_locking_callback(nullptr);
         for (int i = 0; i < CRYPTO_num_locks(); i++)
             delete ppmutexOpenSSL[i];
         OPENSSL_free(ppmutexOpenSSL);
@@ -194,7 +194,7 @@ uint256 GetRandHash()
 
 
 
-static FILE* fileout = NULL;
+static FILE* fileout = nullptr;
 
 inline int OutputDebugStringF(const char* pszFormat, ...)
 {
@@ -214,7 +214,7 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
         {
             boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
             fileout = fopen(pathDebug.string().c_str(), "a");
-            if (fileout) setbuf(fileout, NULL); // unbuffered
+            if (fileout) setbuf(fileout, nullptr); // unbuffered
         }
         if (fileout)
         {
@@ -321,7 +321,7 @@ string real_strprintf(const std::string &format, int dummy, ...)
             delete[] p;
         limit *= 2;
         p = new char[limit];
-        if (p == NULL)
+        if (p == nullptr)
             throw std::bad_alloc();
     }
     string str(p, p+ret);
@@ -861,7 +861,7 @@ boost::filesystem::path GetDefaultDataDir()
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
-    if (pszHome == NULL || strlen(pszHome) == 0)
+    if (pszHome == nullptr || strlen(pszHome) == 0)
         pathRet = fs::path("/");
     else
         pathRet = fs::path(pszHome);
@@ -1019,7 +1019,7 @@ int64 GetTime()
 {
     if (nMockTime) return nMockTime;
 
-    return time(NULL);
+    return time(nullptr);
 }
 
 void SetMockTime(int64 nMockTimeIn)
@@ -1116,9 +1116,9 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
     if (!comments.empty())
         ss << "(" << boost::algorithm::join(comments, "; ") << ")";
     ss << "/";
-    ss << "Sprouts:" << FormatVersion(PPCOIN_VERSION);
+    ss << "Sprouts Classic:" << FormatVersion(PPCOIN_VERSION);
     ss << "/";
-    ss << "Sprouts:" << FormatVersion(PEERUNITY_VERSION);
+    ss << "Sprouts Classic:" << FormatVersion(PEERUNITY_VERSION);
     ss << "(" << CLIENT_BUILD << ")/";
     return ss.str();
 }

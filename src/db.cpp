@@ -68,10 +68,10 @@ public:
 instance_of_cdbinit;
 
 
-CDB::CDB(const char *pszFile, const char* pszMode) : pdb(NULL)
+CDB::CDB(const char *pszFile, const char* pszMode) : pdb(nullptr)
 {
     int ret;
-    if (pszFile == NULL)
+    if (pszFile == nullptr)
         return;
 
     fReadOnly = (!strchr(pszMode, '+') && !strchr(pszMode, 'w'));
@@ -120,11 +120,11 @@ CDB::CDB(const char *pszFile, const char* pszMode) : pdb(NULL)
         strFile = pszFile;
         ++mapFileUseCount[strFile];
         pdb = mapDb[strFile];
-        if (pdb == NULL)
+        if (pdb == nullptr)
         {
             pdb = new Db(&dbenv, 0);
 
-            ret = pdb->open(NULL,      // Txn pointer
+            ret = pdb->open(nullptr,      // Txn pointer
                             pszFile,   // Filename
                             "main",    // Logical db name
                             DB_BTREE,  // Database type
@@ -134,7 +134,7 @@ CDB::CDB(const char *pszFile, const char* pszMode) : pdb(NULL)
             if (ret > 0)
             {
                 delete pdb;
-                pdb = NULL;
+                pdb = nullptr;
                 {
                      LOCK(cs_db);
                     --mapFileUseCount[strFile];
@@ -163,7 +163,7 @@ void CDB::Close()
     if (!vTxn.empty())
         vTxn.front()->abort();
     vTxn.clear();
-    pdb = NULL;
+    pdb = nullptr;
 
     // Flush database activity from memory pool to disk log
     unsigned int nMinutes = 0;
@@ -188,13 +188,13 @@ void CloseDb(const string& strFile)
 {
     {
         LOCK(cs_db);
-        if (mapDb[strFile] != NULL)
+        if (mapDb[strFile] != nullptr)
         {
             // Close the database handle
             Db* pdb = mapDb[strFile];
             pdb->close(0);
             delete pdb;
-            mapDb[strFile] = NULL;
+            mapDb[strFile] = nullptr;
         }
     }
 }
@@ -220,7 +220,7 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
                     CDB db(strFile.c_str(), "r");
                     Db* pdbCopy = new Db(&dbenv, 0);
     
-                    int ret = pdbCopy->open(NULL,                 // Txn pointer
+                    int ret = pdbCopy->open(nullptr,                 // Txn pointer
                                             strFileRes.c_str(),   // Filename
                                             "main",    // Logical db name
                                             DB_BTREE,  // Database type
@@ -277,10 +277,10 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
                 if (fSuccess)
                 {
                     Db dbA(&dbenv, 0);
-                    if (dbA.remove(strFile.c_str(), NULL, 0))
+                    if (dbA.remove(strFile.c_str(), nullptr, 0))
                         fSuccess = false;
                     Db dbB(&dbenv, 0);
-                    if (dbB.rename(strFileRes.c_str(), NULL, strFile.c_str(), 0))
+                    if (dbB.rename(strFileRes.c_str(), nullptr, strFile.c_str(), 0))
                         fSuccess = false;
                 }
                 if (!fSuccess)
@@ -532,7 +532,7 @@ bool CTxDB::WriteV04UpgradeTime(const unsigned int& nUpgradeTime)
 CBlockIndex static * InsertBlockIndex(uint256 hash)
 {
     if (hash == 0)
-        return NULL;
+        return nullptr;
 
     // Return existing
     map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(hash);
@@ -603,7 +603,7 @@ bool CTxDB::LoadBlockIndex()
             pindexNew->nNonce         = diskindex.nNonce;
 
             // Watch for genesis block
-            if (pindexGenesisBlock == NULL && diskindex.GetBlockHash() == hashGenesisBlock)
+            if (pindexGenesisBlock == nullptr && diskindex.GetBlockHash() == hashGenesisBlock)
                 pindexGenesisBlock = pindexNew;
 
             if (!pindexNew->CheckIndex())
@@ -649,7 +649,7 @@ bool CTxDB::LoadBlockIndex()
     // Load hashBestChain pointer to end of best chain
     if (!ReadHashBestChain(hashBestChain))
     {
-        if (pindexGenesisBlock == NULL)
+        if (pindexGenesisBlock == nullptr)
             return true;
         return error("CTxDB::LoadBlockIndex() : hashBestChain not loaded");
     }
@@ -676,7 +676,7 @@ bool CTxDB::LoadBlockIndex()
     if (nCheckDepth > nBestHeight)
         nCheckDepth = nBestHeight;
     printf("Verifying last %i blocks at level %i\n", nCheckDepth, nCheckLevel);
-    CBlockIndex* pindexFork = NULL;
+    CBlockIndex* pindexFork = nullptr;
     map<pair<unsigned int, unsigned int>, CBlockIndex*> mapBlockPos;
     for (CBlockIndex* pindex = pindexBest; pindex && pindex->pprev; pindex = pindex->pprev)
     {

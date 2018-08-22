@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = sprouts
-VERSION = 0.4.2.2
+TARGET = sproutsclassic
+VERSION = 0.4.2.6
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE USE_IPV6
 CONFIG += no_include_pwd
@@ -66,18 +66,33 @@ windows {
     	}
     	BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
     	BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
-    	BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
-    	BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-    	OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1i/include
-    	OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1i
+        BDB_INCLUDE_PATH=C:/Program Files (x86)/Oracle/Berkeley DB 4.8.30/include
+        BDB_LIB_PATH=C:/Program Files (x86)/Oracle/Berkeley DB 4.8.30/lib
+        OPENSSL_INCLUDE_PATH=C:/OpenSSL-Win64/include/openssl
+        OPENSSL_LIB_PATH=C:/OpenSSL-Win64/lib
     	MINIUPNPC_INCLUDE_PATH=C:/deps
     	MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
     }
 }
 
-OBJECTS_DIR = build
-MOC_DIR = build
-UI_DIR = build
+
+
+DESTDIR = bin
+UI_DIR = .
+
+CONFIG(debug, debug|release) {
+        TARGET = sproutsclassic
+        OBJECTS_DIR = build/sproutsclassic/debug
+        MOC_DIR = build/sproutsclassic/debug
+}
+
+CONFIG(release, debug|release) {
+        TARGET = sproutsclassic
+        OBJECTS_DIR = build/sproutsclassic/release
+        MOC_DIR = build/sproutsclassic/release
+}
+
+
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
@@ -314,8 +329,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/multisiginputentry.cpp \
     src/qt/multisigdialog.cpp
 
-RESOURCES += \
-    src/qt/bitcoin.qrc
+RESOURCES += src/qt/bitcoin.qrc
 
 FORMS += \
     src/qt/forms/sendcoinsdialog.ui \
@@ -429,7 +443,7 @@ macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/sprouts.icns
-macx:TARGET = "Sprouts"
+macx:TARGET = "SproutsClassic"
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH

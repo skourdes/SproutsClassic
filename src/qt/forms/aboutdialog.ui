@@ -38,10 +38,21 @@
        </property>
       </spacer>
      </item>
-     <item>
+     <item alignment="Qt::AlignLeft">
       <widget class="QLabel" name="label_3">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>44</pointsize>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
-        <string/>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/sprouts_tooltip&quot;/&gt;SPROUTS CLASSIC&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="pixmap">
         <pixmap resource="../bitcoin.qrc">:/icons/res/icons/horizontal_trans-no-shadow.png</pixmap>
@@ -72,7 +83,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Sprouts&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Sprouts Classic&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -110,14 +121,14 @@
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Copyright © 2014 Sprouts Developers</string>
+        <string>Copyright © 2018 Sprouts Classic Developers</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_sprouts_copyright">
        <property name="text">
-        <string>Copyright © 2011-2014 Sprouts Developers</string>
+        <string>Copyright © 2011-2018 Sprouts Classic Developers</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

@@ -1124,8 +1124,8 @@ Questo significa che è necessaria una tariffa di almeno %2.</translation>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="217"/>
-        <source>Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTS fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment.</source>
-        <translation>Tariffa di transazione della rete obbligatoria per kB trasferito. La maggior parte delle transazioni sono 1kB ed hanno una tariffa di 0.01 SPRTS. Nota: la dimensione del trasferimento aumenta a seconda del numero delle transazioni di input totali necessarie per finanziare il pagamento.</translation>
+        <source>Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTSC fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment.</source>
+        <translation>Tariffa di transazione della rete obbligatoria per kB trasferito. La maggior parte delle transazioni sono 1kB ed hanno una tariffa di 0.01 SPRTSC. Nota: la dimensione del trasferimento aumenta a seconda del numero delle transazioni di input totali necessarie per finanziare il pagamento.</translation>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="223"/>
@@ -1434,8 +1434,8 @@ Questo significa che è necessaria una tariffa di almeno %2.</translation>
     </message>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="105"/>
-        <source>SPRTS</source>
-        <translation>SPRTS</translation>
+        <source>SPRTSC</source>
+        <translation>SPRTSC</translation>
     </message>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="121"/>
