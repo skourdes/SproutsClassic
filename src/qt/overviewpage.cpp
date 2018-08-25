@@ -94,7 +94,7 @@ public:
     int unit;
 
 };
-
+#include "overviewpage.moc"
 
 OverviewPage::OverviewPage(QWidget *parent) :
     QWidget(parent),
@@ -216,5 +216,3 @@ void OverviewPage::resizeEvent(QResizeEvent *event)
     filter->setLimit(numDisplayedTransactions());
     QWidget::resizeEvent(event);
 }
-#include "overviewpage.moc"
-

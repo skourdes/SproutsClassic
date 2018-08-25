@@ -30,9 +30,9 @@ public:
     bool fSpent;
     CWalletTx* ptx;
     int nOut;
-    CTxDump(CWalletTx* ptx = nullptr, int nOut = -1)
+    CTxDump(CWalletTx* ptx = NULL, int nOut = -1)
     {
-        pindex = nullptr;
+        pindex = NULL;
         nValue = 0;
         fSpent = false;
         this->ptx = ptx;

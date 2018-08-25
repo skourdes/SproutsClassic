@@ -713,7 +713,7 @@ Address: %4
         <location filename="../forms/coincontroldialog.ui" line="310"/>
         <location filename="../forms/coincontroldialog.ui" line="348"/>
         <source>0.00 BTC</source>
-        <translation>0.00 SPRTSC</translation>
+        <translation>0.00 SPRTS</translation>
     </message>
     <message>
         <location filename="../forms/coincontroldialog.ui" line="157"/>
@@ -1127,8 +1127,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="217"/>
-        <source>Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTSC fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment.</source>
-        <translation>传输每千字节必须缴纳的网络交易费。大多数交易为 1 kB 交0.01 SPRTSC交易费。注：输入数目增加可能会导致更高的交易费。</translation>
+        <source>Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTS fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment.</source>
+        <translation>传输每千字节必须缴纳的网络交易费。大多数交易为 1 kB 交0.01 SPRTS交易费。注：输入数目增加可能会导致更高的交易费。</translation>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="223"/>
@@ -1437,8 +1437,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="105"/>
-        <source>SPRTSC</source>
-        <translation>SPRTSC</translation>
+        <source>SPRTS</source>
+        <translation>SPRTS</translation>
     </message>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="121"/>
@@ -1637,7 +1637,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../forms/sendcoinsdialog.ui" line="496"/>
         <location filename="../forms/sendcoinsdialog.ui" line="528"/>
         <source>0.00 BTC</source>
-        <translation>0.00 SPRTSC</translation>
+        <translation>0.00 SPRTS</translation>
     </message>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="337"/>

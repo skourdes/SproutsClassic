@@ -30,6 +30,7 @@ namespace Checkpoints
         ( 11800, uint256("0xf83ca8051c90de8c62adaaa7e58df3e0ff178eab7cc38a041cac4e033a77fe1e"))
         ( 35893, uint256("0x0000000000001cb66e8a93aac0d1d7a2991236f8f70ef75bc9733d208ad86739"))
         ( 469553, uint256("0x000000000b504b0eab0bc36c5bd0cb89c7ec8350e9b1a87d886954e948988116"))
+        ( 875211, uint256("0x00000006697eba873dd099fff890f51816483750ac04100da85afd2797c13be1"))
         ;
 
     bool CheckHardened(int nHeight, const uint256& hash)
@@ -54,7 +55,7 @@ namespace Checkpoints
             std::map<uint256, CBlockIndex*>::const_iterator t = mapBlockIndex.find(hashGenesisBlock);
             if (t != mapBlockIndex.end())
                 return t->second;
-            return nullptr;
+            return NULL;
         }
 
         BOOST_REVERSE_FOREACH(const MapCheckpoints::value_type& i, mapCheckpoints)
@@ -64,7 +65,7 @@ namespace Checkpoints
             if (t != mapBlockIndex.end())
                 return t->second;
         }
-        return nullptr;
+        return NULL;
     }
 
     // sprouts: synchronized checkpoint (centrally broadcasted)
@@ -83,7 +84,7 @@ namespace Checkpoints
             error("GetSyncCheckpoint: block index missing for current sync-checkpoint %s", hashSyncCheckpoint.ToString().c_str());
         else
             return mapBlockIndex[hashSyncCheckpoint];
-        return nullptr;
+        return NULL;
     }
 
     // sprouts: only descendant of current sync-checkpoint is allowed
@@ -330,7 +331,7 @@ namespace Checkpoints
         if (!key.Sign(Hash(checkpoint.vchMsg.begin(), checkpoint.vchMsg.end()), checkpoint.vchSig))
             return error("SendSyncCheckpoint: Unable to sign checkpoint, check private key?");
 
-        if(!checkpoint.ProcessSyncCheckpoint(nullptr))
+        if(!checkpoint.ProcessSyncCheckpoint(NULL))
         {
             printf("WARNING: SendSyncCheckpoint: Failed to process checkpoint.\n");
             return false;

@@ -36,12 +36,12 @@ static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20);
 static CBigNum bnInitialHashTarget(~uint256(0) >> 20);
 unsigned int nStakeMinAge = STAKE_MIN_AGE;
 int nCoinbaseMaturity = COINBASE_MATURITY_PPC;
-CBlockIndex* pindexGenesisBlock = nullptr;
+CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 CBigNum bnBestChainTrust = 0;
 CBigNum bnBestInvalidTrust = 0;
 uint256 hashBestChain = 0;
-CBlockIndex* pindexBest = nullptr;
+CBlockIndex* pindexBest = NULL;
 int64 nTimeBestReceived = 0;
 
 CMedianFilter<int> cPeerBlockCounts(5, 0); // Amount of blocks that other nodes claim to have
@@ -402,7 +402,7 @@ int CMerkleTx::SetMerkleBranch(const CBlock* pblock)
     else
     {
         CBlock blockTmp;
-        if (pblock == nullptr)
+        if (pblock == NULL)
         {
             // Load the block this tx is in
             CTxIndex txindex;
@@ -584,7 +584,7 @@ bool CTxMemPool::accept(CTxDB& txdb, CTransaction &tx, bool fCheckInputs,
             return false;
 
     // Check for conflicts with in-memory transactions
-    CTransaction* ptxOld = nullptr;
+    CTransaction* ptxOld = NULL;
     for (unsigned int i = 0; i < tx.vin.size(); i++)
     {
         COutPoint outpoint = tx.vin[i].prevout;
@@ -1006,14 +1006,14 @@ const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfSta
 
 unsigned int static GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake)
 {
-    if (pindexLast == nullptr)
+    if (pindexLast == NULL)
         return bnProofOfWorkLimit.GetCompact(); // genesis block
 
     const CBlockIndex* pindexPrev = GetLastBlockIndex(pindexLast, fProofOfStake);
-    if (pindexPrev->pprev == nullptr)
+    if (pindexPrev->pprev == NULL)
         return bnInitialHashTarget.GetCompact(); // first block
     const CBlockIndex* pindexPrevPrev = GetLastBlockIndex(pindexPrev->pprev, fProofOfStake);
-    if (pindexPrevPrev->pprev == nullptr)
+    if (pindexPrevPrev->pprev == NULL)
         return bnInitialHashTarget.GetCompact(); // second block
 
     int64 nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
@@ -1057,7 +1057,7 @@ int GetNumBlocksOfPeers()
 
 bool IsInitialBlockDownload()
 {
-    if (pindexBest == nullptr || nBestHeight < Checkpoints::GetTotalBlocksEstimate())
+    if (pindexBest == NULL || nBestHeight < Checkpoints::GetTotalBlocksEstimate())
         return true;
     static int64 nLastUpdate;
     static CBlockIndex* pindexLastBest;
@@ -1633,7 +1633,7 @@ bool Reorganize(CTxDB& txdb, CBlockIndex* pindexNew)
     // Disconnect shorter branch
     BOOST_FOREACH(CBlockIndex* pindex, vDisconnect)
         if (pindex->pprev)
-            pindex->pprev->pnext = nullptr;
+            pindex->pprev->pnext = NULL;
 
     // Connect longer branch
     BOOST_FOREACH(CBlockIndex* pindex, vConnect)
@@ -1686,7 +1686,7 @@ bool CBlock::SetBestChain(CTxDB& txdb, CBlockIndex* pindexNew)
     if (!txdb.TxnBegin())
         return error("SetBestChain() : TxnBegin failed");
 
-    if (pindexGenesisBlock == nullptr && hash == hashGenesisBlock)
+    if (pindexGenesisBlock == NULL && hash == hashGenesisBlock)
     {
         txdb.WriteHashBestChain(hash);
         if (!txdb.TxnCommit())
@@ -2279,7 +2279,7 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low");
         strMiscWarning = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        ThreadSafeMessageBox(strMessage, "Sprouts", wxOK | wxICON_EXCLAMATION | wxMODAL);
+        ThreadSafeMessageBox(strMessage, "Sprouts Classic", wxOK | wxICON_EXCLAMATION | wxMODAL);
         StartShutdown();
         return false;
     }
@@ -2289,16 +2289,16 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
 FILE* OpenBlockFile(unsigned int nFile, unsigned int nBlockPos, const char* pszMode)
 {
     if (nFile == -1)
-        return nullptr;
+        return NULL;
     FILE* file = fopen((GetDataDir() / strprintf("blk%04d.dat", nFile)).string().c_str(), pszMode);
     if (!file)
-        return nullptr;
+        return NULL;
     if (nBlockPos != 0 && !strchr(pszMode, 'a') && !strchr(pszMode, 'w'))
     {
         if (fseek(file, nBlockPos, SEEK_SET) != 0)
         {
             fclose(file);
-            return nullptr;
+            return NULL;
         }
     }
     return file;
@@ -2313,9 +2313,9 @@ FILE* AppendBlockFile(unsigned int& nFileRet)
     {
         FILE* file = OpenBlockFile(nCurrentBlockFile, 0, "ab");
         if (!file)
-            return nullptr;
+            return NULL;
         if (fseek(file, 0, SEEK_END) != 0)
-            return nullptr;
+            return NULL;
         // FAT32 filesize max 4GB, fseek and ftell max 2GB, so we must stay under 2GB
         if (ftell(file) < 0x7F000000 - MAX_SIZE)
         {
@@ -2340,7 +2340,7 @@ bool LoadBlockIndex(bool fAllowNew)
     }
 
     printf("%s Network: genesis=0x%s nBitsLimit=0x%08x nBitsInitial=0x%08x nStakeMinAge=%d nCoinbaseMaturity=%d nModifierInterval=%d\n",
-           fTestNet? "Test" : "Sprouts", hashGenesisBlock.ToString().substr(0, 20).c_str(), bnProofOfWorkLimit.GetCompact(), bnInitialHashTarget.GetCompact(), nStakeMinAge, nCoinbaseMaturity, nModifierInterval);
+           fTestNet? "Test" : "Sprouts Classic", hashGenesisBlock.ToString().substr(0, 20).c_str(), bnProofOfWorkLimit.GetCompact(), bnInitialHashTarget.GetCompact(), nStakeMinAge, nCoinbaseMaturity, nModifierInterval);
 
     //
     // Load block index
@@ -3093,7 +3093,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         uint256 hashStop;
         vRecv >> locator >> hashStop;
 
-        CBlockIndex* pindex = nullptr;
+        CBlockIndex* pindex = NULL;
         if (locator.IsNull())
         {
             // If locator is null, return the hashStop block
@@ -3138,7 +3138,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         bool fMissingInputs = false;
         if (tx.AcceptToMemoryPool(txdb, true, &fMissingInputs))
         {
-            SyncWithWallets(tx, nullptr, true);
+            SyncWithWallets(tx, NULL, true);
             RelayMessage(inv, vMsg);
             mapAlreadyAskedFor.erase(inv);
             vWorkQueue.push_back(inv.hash);
@@ -3161,7 +3161,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                     if (tx.AcceptToMemoryPool(txdb, true, &fMissingInputs2))
                     {
                         printf("   accepted orphan tx %s\n", inv.hash.ToString().substr(0,10).c_str());
-                        SyncWithWallets(tx, nullptr, true);
+                        SyncWithWallets(tx, NULL, true);
                         RelayMessage(inv, vMsg);
                         mapAlreadyAskedFor.erase(inv);
                         vWorkQueue.push_back(inv.hash);
@@ -3799,7 +3799,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, CWallet* pwallet, bool fProofOfS
             if (tx.IsCoinBase() || tx.IsCoinStake() || !tx.IsFinal())
                 continue;
 
-            COrphan* porphan = nullptr;
+            COrphan* porphan = NULL;
             double dPriority = 0;
             BOOST_FOREACH(const CTxIn& txin, tx.vin)
             {
@@ -4037,7 +4037,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         }
 
         // Process this block the same as if we had received it from another node
-        if (!ProcessBlock(nullptr, pblock))
+        if (!ProcessBlock(NULL, pblock))
             return error("BitcoinMiner : ProcessBlock, block not accepted");
     }
 

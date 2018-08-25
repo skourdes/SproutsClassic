@@ -17,7 +17,7 @@
 #define PEERUNITY_VERSION_MAJOR       0
 #define PEERUNITY_VERSION_MINOR       1
 #define PEERUNITY_VERSION_REVISION    2
-#define PEERUNITY_VERSION_BUILD       2
+#define PEERUNITY_VERSION_BUILD       3
 
 static const int PEERUNITY_VERSION =
                            1000000 * PEERUNITY_VERSION_MAJOR
@@ -60,7 +60,7 @@ extern const std::string CLIENT_DATE;
 // network protocol versioning
 //
 
-static const int PROTOCOL_VERSION = 60004;
+static const int PROTOCOL_VERSION = 60008;
 
 // earlier versions not supported as of Feb 2012, and are disconnected
 // NOTE: as of bitcoin v0.6 message serialization (vSend, vRecv) still

@@ -110,7 +110,7 @@ public:
     ~CInit()
     {
         // Shutdown openssl library multithreading support
-        CRYPTO_set_locking_callback(nullptr);
+        CRYPTO_set_locking_callback(NULL);
         for (int i = 0; i < CRYPTO_num_locks(); i++)
             delete ppmutexOpenSSL[i];
         OPENSSL_free(ppmutexOpenSSL);
@@ -194,7 +194,7 @@ uint256 GetRandHash()
 
 
 
-static FILE* fileout = nullptr;
+static FILE* fileout = NULL;
 
 inline int OutputDebugStringF(const char* pszFormat, ...)
 {
@@ -214,7 +214,7 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
         {
             boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
             fileout = fopen(pathDebug.string().c_str(), "a");
-            if (fileout) setbuf(fileout, nullptr); // unbuffered
+            if (fileout) setbuf(fileout, NULL); // unbuffered
         }
         if (fileout)
         {
@@ -321,7 +321,7 @@ string real_strprintf(const std::string &format, int dummy, ...)
             delete[] p;
         limit *= 2;
         p = new char[limit];
-        if (p == nullptr)
+        if (p == NULL)
             throw std::bad_alloc();
     }
     string str(p, p+ret);
@@ -861,7 +861,7 @@ boost::filesystem::path GetDefaultDataDir()
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
-    if (pszHome == nullptr || strlen(pszHome) == 0)
+    if (pszHome == NULL || strlen(pszHome) == 0)
         pathRet = fs::path("/");
     else
         pathRet = fs::path(pszHome);
@@ -1019,7 +1019,7 @@ int64 GetTime()
 {
     if (nMockTime) return nMockTime;
 
-    return time(nullptr);
+    return time(NULL);
 }
 
 void SetMockTime(int64 nMockTimeIn)
@@ -1074,7 +1074,7 @@ void AddTimeData(const CNetAddr& ip, int64 nTime)
                     string strMessage = _("Warning: Please check that your computer's date and time are correct.  If your clock is wrong Sprouts will not work properly.");
                     strMiscWarning = strMessage;
                     printf("*** %s\n", strMessage.c_str());
-                    ThreadSafeMessageBox(strMessage+" ", string("Sprouts"), wxOK | wxICON_EXCLAMATION);
+                    ThreadSafeMessageBox(strMessage+" ", string("Sprouts Classic"), wxOK | wxICON_EXCLAMATION);
                 }
             }
         }

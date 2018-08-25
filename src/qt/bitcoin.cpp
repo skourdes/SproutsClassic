@@ -127,7 +127,7 @@ std::string _(const char* psz)
 static void handleRunawayException(std::exception *e)
 {
     PrintExceptionContinue(e, "Runaway exception");
-    QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occured. Sprouts can no longer continue safely and will quit.") + QString("\n\n") + QString::fromStdString(strMiscWarning));
+    QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occured. Sprouts Classic can no longer continue safely and will quit.") + QString("\n\n") + QString::fromStdString(strMiscWarning));
     exit(1);
 }
 
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 
     // Application identification (must be set before OptionsModel is initialized,
     // as it is used to locate QSettings)
-    app.setOrganizationName("Sprouts");
+    app.setOrganizationName("Sprouts Classic");
     app.setOrganizationDomain("sprouts.org");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
         app.setApplicationName("Sprouts-Qt-testnet");

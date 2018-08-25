@@ -30,20 +30,20 @@ public:
     CAutoBN_CTX()
     {
         pctx = BN_CTX_new();
-        if (pctx == nullptr)
+        if (pctx == NULL)
             throw bignum_error("CAutoBN_CTX : BN_CTX_new() returned NULL");
     }
 
     ~CAutoBN_CTX()
     {
-        if (pctx != nullptr)
+        if (pctx != NULL)
             BN_CTX_free(pctx);
     }
 
     operator BN_CTX*() { return pctx; }
     BN_CTX& operator*() { return *pctx; }
     BN_CTX** operator&() { return &pctx; }
-    bool operator!() { return (pctx == nullptr); }
+    bool operator!() { return (pctx == NULL); }
 };
 
 
@@ -259,7 +259,7 @@ public:
 
     std::vector<unsigned char> getvch() const
     {
-        unsigned int nSize = BN_bn2mpi(this, nullptr);
+        unsigned int nSize = BN_bn2mpi(this, NULL);
         if (nSize <= 4)
             return std::vector<unsigned char>();
         std::vector<unsigned char> vch(nSize);
@@ -283,7 +283,7 @@ public:
 
     unsigned int GetCompact() const
     {
-        unsigned int nSize = BN_bn2mpi(this, nullptr);
+        unsigned int nSize = BN_bn2mpi(this, NULL);
         std::vector<unsigned char> vch(nSize);
         nSize -= 4;
         BN_bn2mpi(this, &vch[0]);
@@ -516,7 +516,7 @@ inline const CBigNum operator/(const CBigNum& a, const CBigNum& b)
 {
     CAutoBN_CTX pctx;
     CBigNum r;
-    if (!BN_div(&r, nullptr, &a, &b, pctx))
+    if (!BN_div(&r, NULL, &a, &b, pctx))
         throw bignum_error("CBigNum::operator/ : BN_div failed");
     return r;
 }

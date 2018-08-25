@@ -64,13 +64,13 @@ bool static LookupIntern(const char *pszName, std::vector<CNetAddr>& vIP, unsign
     aiHint.ai_flags = AI_ADDRCONFIG | (fAllowLookup ? 0 : AI_NUMERICHOST);
 #  endif
 #endif
-    struct addrinfo *aiRes = nullptr;
-    int nErr = getaddrinfo(pszName, nullptr, &aiHint, &aiRes);
+    struct addrinfo *aiRes = NULL;
+    int nErr = getaddrinfo(pszName, NULL, &aiHint, &aiRes);
     if (nErr)
         return false;
 
     struct addrinfo *aiTrav = aiRes;
-    while (aiTrav != nullptr && (nMaxSolutions == 0 || vIP.size() < nMaxSolutions))
+    while (aiTrav != NULL && (nMaxSolutions == 0 || vIP.size() < nMaxSolutions))
     {
         if (aiTrav->ai_family == AF_INET)
         {
@@ -124,7 +124,7 @@ bool Lookup(const char *pszName, std::vector<CService>& vAddr, int portDefault, 
     char *pszHost = psz;
     strlcpy(psz, pszName, sizeof(psz));
     char* pszColon = strrchr(psz+1,':');
-    char *pszPortEnd = nullptr;
+    char *pszPortEnd = NULL;
     int portParsed = pszColon ? strtoul(pszColon+1, &pszPortEnd, 10) : 0;
     if (pszColon && pszPortEnd && pszPortEnd[0] == 0)
     {
@@ -367,7 +367,7 @@ bool static ConnectSocketDirectly(const CService &addrConnect, SOCKET& hSocketRe
             fd_set fdset;
             FD_ZERO(&fdset);
             FD_SET(hSocket, &fdset);
-            int nRet = select(hSocket + 1, nullptr, &fdset, nullptr, &timeout);
+            int nRet = select(hSocket + 1, NULL, &fdset, NULL, &timeout);
             if (nRet == 0)
             {
                 printf("connection timeout\n");
@@ -464,7 +464,7 @@ bool ConnectSocketByName(CService &addr, SOCKET& hSocketRet, const char *pszDest
     int port = portDefault;
 
     size_t colon = strDest.find_last_of(':');
-    char *endp = nullptr;
+    char *endp = NULL;
     int n = strtol(pszDest + colon + 1, &endp, 10);
     if (endp && *endp == 0 && n >= 0) {
         strDest = strDest.substr(0, colon);

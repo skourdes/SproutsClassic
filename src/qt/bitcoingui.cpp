@@ -275,7 +275,7 @@ void BitcoinGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/sprouts_tooltip"), tr("&About Sprouts"), this);
+    aboutAction = new QAction(QIcon(":/icons/sprouts_tooltip"), tr("&About Sprouts Classic"), this);
     aboutAction->setToolTip(tr("Show information about Sprouts Classic"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/icons/qt"), tr("About &Qt"), this);

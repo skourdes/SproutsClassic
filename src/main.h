@@ -127,7 +127,7 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan);
 const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfStake);
 void BitcoinMiner(CWallet *pwallet, bool fProofOfStake);
 bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock);
-double GetBlockDifficulty(const CBlockIndex* blockindex = nullptr);
+double GetBlockDifficulty(const CBlockIndex* blockindex = NULL);
 
 
 
@@ -199,8 +199,8 @@ public:
 
     CInPoint() { SetNull(); }
     CInPoint(CTransaction* ptxIn, unsigned int nIn) { ptx = ptxIn; n = nIn; }
-    void SetNull() { ptx = nullptr; n = -1; }
-    bool IsNull() const { return (ptx == nullptr && n == -1); }
+    void SetNull() { ptx = NULL; n = -1; }
+    bool IsNull() const { return (ptx == NULL && n == -1); }
 };
 
 
@@ -593,7 +593,7 @@ public:
 
     int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=false, enum GetMinFee_mode mode=GMF_BLOCK, unsigned int nBytes=0) const;
 
-    bool ReadFromDisk(CDiskTxPos pos, FILE** pfileRet=nullptr)
+    bool ReadFromDisk(CDiskTxPos pos, FILE** pfileRet=NULL)
     {
         CAutoFile filein = CAutoFile(OpenBlockFile(pos.nFile, 0, pfileRet ? "rb+" : "rb"), SER_DISK, CLIENT_VERSION);
         if (!filein)
@@ -702,7 +702,7 @@ public:
                        const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, bool fStrictPayToScriptHash=true);
     bool ClientConnectInputs();
     bool CheckTransaction() const;
-    bool AcceptToMemoryPool(CTxDB& txdb, bool fCheckInputs=true, bool* pfMissingInputs=nullptr);
+    bool AcceptToMemoryPool(CTxDB& txdb, bool fCheckInputs=true, bool* pfMissingInputs=NULL);
     bool GetCoinAge(CTxDB& txdb, uint64& nCoinAge) const;  // sprouts: get transaction coin age
 
 protected:
@@ -753,7 +753,7 @@ public:
     )
 
 
-    int SetMerkleBranch(const CBlock* pblock=nullptr);
+    int SetMerkleBranch(const CBlock* pblock=NULL);
     int GetDepthInMainChain(CBlockIndex* &pindexRet) const;
     int GetDepthInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChain(pindexRet); }
     bool IsInMainChain() const { return GetDepthInMainChain() > 0; }
@@ -1143,9 +1143,9 @@ public:
 
     CBlockIndex()
     {
-        phashBlock = nullptr;
-        pprev = nullptr;
-        pnext = nullptr;
+        phashBlock = NULL;
+        pprev = NULL;
+        pnext = NULL;
         nFile = 0;
         nBlockPos = 0;
         nHeight = 0;
@@ -1168,9 +1168,9 @@ public:
 
     CBlockIndex(unsigned int nFileIn, unsigned int nBlockPosIn, CBlock& block)
     {
-        phashBlock = nullptr;
-        pprev = nullptr;
-        pnext = nullptr;
+        phashBlock = NULL;
+        pprev = NULL;
+        pnext = NULL;
         nFile = nFileIn;
         nBlockPos = nBlockPosIn;
         nHeight = 0;

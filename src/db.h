@@ -69,7 +69,7 @@ protected:
         datValue.set_flags(DB_DBT_MALLOC);
         int ret = pdb->get(GetTxn(), &datKey, &datValue, 0);
         memset(datKey.get_data(), 0, datKey.get_size());
-        if (datValue.get_data() == nullptr)
+        if (datValue.get_data() == NULL)
             return false;
 
         // Unserialize value
@@ -161,11 +161,11 @@ protected:
     Dbc* GetCursor()
     {
         if (!pdb)
-            return nullptr;
-        Dbc* pcursor = nullptr;
-        int ret = pdb->cursor(nullptr, &pcursor, 0);
+            return NULL;
+        Dbc* pcursor = NULL;
+        int ret = pdb->cursor(NULL, &pcursor, 0);
         if (ret != 0)
-            return nullptr;
+            return NULL;
         return pcursor;
     }
 
@@ -221,7 +221,7 @@ public:
     {
         if (!pdb)
             return false;
-        DbTxn* ptxn = nullptr;
+        DbTxn* ptxn = NULL;
         int ret = dbenv.txn_begin(GetTxn(), &ptxn, DB_TXN_WRITE_NOSYNC);
         if (!ptxn || ret != 0)
             return false;
@@ -262,7 +262,7 @@ public:
         return Write(std::string("version"), nVersion);
     }
 
-    bool static Rewrite(const std::string& strFile, const char* pszSkip = nullptr);
+    bool static Rewrite(const std::string& strFile, const char* pszSkip = NULL);
 };
 
 

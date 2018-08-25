@@ -66,7 +66,7 @@ public slots:
 
 };
 
-
+#include "optionsdialog.moc"
 
 OptionsDialog::OptionsDialog(QWidget *parent):
     QDialog(parent), contents_widget(0), pages_widget(0),
@@ -169,8 +169,8 @@ MainOptionsPage::MainOptionsPage(QWidget *parent):
 {
     QVBoxLayout *layout = new QVBoxLayout();
 
-    bitcoin_at_startup = new QCheckBox(tr("&Start Sprouts on window system startup"));
-    bitcoin_at_startup->setToolTip(tr("Automatically start Sprouts after the computer is turned on"));
+    bitcoin_at_startup = new QCheckBox(tr("&Start Sprouts Classic on window system startup"));
+    bitcoin_at_startup->setToolTip(tr("Automatically start Sprouts Classic after the computer is turned on"));
     layout->addWidget(bitcoin_at_startup);
 
 #ifndef Q_WS_MAC
@@ -184,7 +184,7 @@ MainOptionsPage::MainOptionsPage(QWidget *parent):
 #endif
 
     map_port_upnp = new QCheckBox(tr("Map port using &UPnP"));
-    map_port_upnp->setToolTip(tr("Automatically open the Sprouts client port on the router. This only works when your router supports UPnP and it is enabled."));
+    map_port_upnp->setToolTip(tr("Automatically open the Sprouts Classic client port on the router. This only works when your router supports UPnP and it is enabled."));
     layout->addWidget(map_port_upnp);
 
     connect_socks4 = new QCheckBox(tr("&Connect through SOCKS4 proxy:"));
@@ -214,7 +214,7 @@ MainOptionsPage::MainOptionsPage(QWidget *parent):
     proxy_hbox->addStretch(1);
 
     layout->addLayout(proxy_hbox);
-    QLabel *fee_help = new QLabel(tr("Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTSC fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment."));
+    QLabel *fee_help = new QLabel(tr("Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTS fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment."));
     fee_help->setWordWrap(true);
     layout->addWidget(fee_help);
 
@@ -284,7 +284,7 @@ DisplayOptionsPage::DisplayOptionsPage(QWidget *parent):
     layout->addLayout(unit_hbox);
 
     display_addresses = new QCheckBox(tr("&Display addresses in transaction list"), this);
-    display_addresses->setToolTip(tr("Whether to show Sprouts addresses in the transaction list"));
+    display_addresses->setToolTip(tr("Whether to show Sprouts Classic addresses in the transaction list"));
     layout->addWidget(display_addresses);
 
     coin_control_features = new QCheckBox(tr("Display coin control features (experts only!)"), this);
@@ -302,4 +302,3 @@ void DisplayOptionsPage::setMapper(MonitoredDataMapper *mapper)
     mapper->addMapping(display_addresses, OptionsModel::DisplayAddresses);
     mapper->addMapping(coin_control_features, OptionsModel::CoinControlFeatures);
 }
-#include "optionsdialog.moc"

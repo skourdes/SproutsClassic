@@ -44,7 +44,7 @@ void ThreadRPCServer2(void* parg);
 
 // Key used by getwork/getblocktemplate miners.
 // Allocated in StartRPCThreads, free'd in StopRPCThreads
-CReserveKey* pMiningKey = nullptr;
+CReserveKey* pMiningKey = NULL;
 
 static std::string strRPCUserColonPass;
 
@@ -62,13 +62,13 @@ Object JSONRPCError(int code, const string& message)
     return error;
 }
 
-double GetDifficulty(const CBlockIndex* blockindex = nullptr)
+double GetDifficulty(const CBlockIndex* blockindex = NULL)
 {
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
-    if (blockindex == nullptr)
+    if (blockindex == NULL)
     {
-        if (pindexBest == nullptr)
+        if (pindexBest == NULL)
             return 1.0;
         else
             blockindex = GetLastBlockIndex(pindexBest, false);
@@ -723,7 +723,7 @@ Value setaccount(const Array& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid Sprouts address");
+        throw JSONRPCError(-5, "Invalid Sprouts Classic address");
 
 
     string strAccount;
@@ -753,7 +753,7 @@ Value getaccount(const Array& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid Sprouts address");
+        throw JSONRPCError(-5, "Invalid Sprouts Classic address");
 
     string strAccount;
     map<CTxDestination, string>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
@@ -811,7 +811,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid Sprouts address");
+        throw JSONRPCError(-5, "Invalid Sprouts Classic address");
 
     // Amount
     int64 nAmount = AmountFromValue(params[1]);
@@ -919,7 +919,7 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     CScript scriptPubKey;
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid Sprouts address");
+        throw JSONRPCError(-5, "Invalid Sprouts Classic address");
     scriptPubKey.SetDestination(address.Get());
     if (!IsMine(*pwalletMain,scriptPubKey))
         return (double)0.0;
@@ -1221,7 +1221,7 @@ Value sendfrom(const Array& params, bool fHelp)
     string strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid Sprouts address");
+        throw JSONRPCError(-5, "Invalid Sprouts Classic address");
     int64 nAmount = AmountFromValue(params[2]);
     if (nAmount < MIN_TXOUT_AMOUNT)
         throw JSONRPCError(-101, "Send amount too small");
@@ -1292,7 +1292,7 @@ Value sendmany(const Array& params, bool fHelp)
     {
         CBitcoinAddress address(s.name_);
         if (!address.IsValid())
-            throw JSONRPCError(-5, string("Invalid Sprouts address:")+s.name_);
+            throw JSONRPCError(-5, string("Invalid Sprouts Classic address:")+s.name_);
 
         if (setAddress.count(address))
             throw JSONRPCError(-8, string("Invalid parameter, duplicated address: ")+s.name_);
@@ -1701,7 +1701,7 @@ Value listsinceblock(const Array& params, bool fHelp)
             "listsinceblock [blockhash] [target-confirmations]\n"
             "Get all transactions in blocks since block [blockhash], or all transactions if omitted");
 
-    CBlockIndex *pindex = nullptr;
+    CBlockIndex *pindex = NULL;
     int target_confirms = 1;
 
     if (params.size() > 0)
@@ -1907,7 +1907,7 @@ Value walletpassphrase(const Array& params, bool fHelp)
             "walletpassphrase <passphrase> <timeout>\n"
             "Stores the wallet decryption key in memory for <timeout> seconds.");
 
-    CreateThread(ThreadTopUpKeyPool, nullptr);
+    CreateThread(ThreadTopUpKeyPool, NULL);
     int64* pnSleepTime = new int64(params[1].get_int64());
     CreateThread(ThreadCleanWalletPassphrase, pnSleepTime);
 
@@ -2006,7 +2006,7 @@ Value encryptwallet(const Array& params, bool fHelp)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys.  So:
     StartShutdown();
-    return "wallet encrypted; Sprouts server stopping, restart to run with encrypted wallet";
+    return "wallet encrypted; Sprouts Classic server stopping, restart to run with encrypted wallet";
 }
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>
@@ -2086,10 +2086,10 @@ Value getwork(const Array& params, bool fHelp)
             "If [data] is specified, tries to solve the block and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "Sprouts is not connected!");
+        throw JSONRPCError(-9, "Sprouts Classic is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Sprouts is downloading blocks...");
+        throw JSONRPCError(-10, "Sprouts Classic is downloading blocks...");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;
@@ -2219,10 +2219,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
 
     {
         if (vNodes.empty())
-            throw JSONRPCError(-9, "Sprouts is not connected!");
+            throw JSONRPCError(-9, "Sprouts Classic is not connected!");
 
         if (IsInitialBlockDownload())
-            throw JSONRPCError(-10, "Sprouts is downloading blocks...");
+            throw JSONRPCError(-10, "Sprouts Classic is downloading blocks...");
 
         // Update block
         static unsigned int nTransactionsUpdatedLast;
@@ -2233,7 +2233,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             (nTransactionsUpdated != nTransactionsUpdatedLast && GetTime() - nStart > 5))
         {
             // Clear pindexPrev so future calls make a new block, despite any failures from here on
-            pindexPrev = nullptr;
+            pindexPrev = NULL;
 
             // Store the pindexBest used before CreateNewBlock, to avoid races
             nTransactionsUpdatedLast = nTransactionsUpdated;
@@ -2244,7 +2244,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             if(pblock)
             {
                 delete pblock;
-                pblock = nullptr;
+                pblock = NULL;
             }
             pblock = CreateNewBlock(*pMiningKey, pwalletMain);
             if (!pblock)
@@ -3175,7 +3175,7 @@ Value sendrawtransaction(const Array& params, bool fHelp)
         if (!tx.AcceptToMemoryPool(txdb, fCheckInputs))
             throw JSONRPCError(-22, "TX rejected");
 
-        SyncWithWallets(tx, nullptr, true);
+        SyncWithWallets(tx, NULL, true);
     }
     RelayMessage(CInv(MSG_TX, hashTx), tx);
 
@@ -3393,7 +3393,7 @@ const CRPCCommand *CRPCTable::operator[](string name) const
 {
     map<string, const CRPCCommand*>::const_iterator it = mapCommands.find(name);
     if (it == mapCommands.end())
-        return nullptr;
+        return NULL;
     return (*it).second;
 }
 
@@ -3427,7 +3427,7 @@ string rfc1123Time()
     time_t now;
     time(&now);
     struct tm* now_gmt = gmtime(&now);
-    string locale(setlocale(LC_TIME, nullptr));
+    string locale(setlocale(LC_TIME, NULL));
     setlocale(LC_TIME, "C"); // we want posix (aka "C") weekday/month strings
     strftime(buffer, sizeof(buffer), "%a, %d %b %Y %H:%M:%S +0000", now_gmt);
     setlocale(LC_TIME, locale.c_str());
@@ -3676,10 +3676,10 @@ void ThreadRPCServer(void* parg)
         PrintException(&e, "ThreadRPCServer()");
     } catch (...) {
         vnThreadsRunning[THREAD_RPCSERVER]--;
-        PrintException(nullptr, "ThreadRPCServer()");
+        PrintException(NULL, "ThreadRPCServer()");
     }
 
-    delete pMiningKey; pMiningKey = nullptr;
+    delete pMiningKey; pMiningKey = NULL;
 
     printf("ThreadRPCServer exiting\n");
 }
@@ -4135,7 +4135,7 @@ int CommandLineRPC(int argc, char *argv[])
     }
     catch (...)
     {
-        PrintException(nullptr, "CommandLineRPC()");
+        PrintException(NULL, "CommandLineRPC()");
     }
 
     if (strPrint != "")

@@ -1130,8 +1130,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="217"/>
-        <source>Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTSC fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment.</source>
-        <translation>Обязательные операционные платы за каждый килобайт перечислены. Большинство операций имеют меньше 1 килобайта и оплачиваются в размере 0.01 SPRTSC. Замечание: размер перевода может увеличиваться в зависимости от количества входных операций, добавляемых вместе, чтобы финансировать оплату. </translation>
+        <source>Mandatory network transaction fee per kB transferred. Most transactions are 1 kB and incur a 0.01 SPRTS fee. Note: transfer size may increase depending on the number of input transactions required to be added together to fund the payment.</source>
+        <translation>Обязательные операционные платы за каждый килобайт перечислены. Большинство операций имеют меньше 1 килобайта и оплачиваются в размере 0.01 SPRTS. Замечание: размер перевода может увеличиваться в зависимости от количества входных операций, добавляемых вместе, чтобы финансировать оплату. </translation>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="223"/>
@@ -1440,8 +1440,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="105"/>
-        <source>SPRTSC</source>
-        <translation>SPRTSC</translation>
+        <source>SPRTS</source>
+        <translation>SPRTS</translation>
     </message>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="121"/>

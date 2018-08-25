@@ -1094,18 +1094,18 @@ public:
 
     void fclose()
     {
-        if (file != nullptr && file != stdin && file != stdout && file != stderr)
+        if (file != NULL && file != stdin && file != stdout && file != stderr)
             ::fclose(file);
-        file = nullptr;
+        file = NULL;
     }
 
-    FILE* release()             { FILE* ret = file; file = nullptr; return ret; }
+    FILE* release()             { FILE* ret = file; file = NULL; return ret; }
     operator FILE*()            { return file; }
     FILE* operator->()          { return file; }
     FILE& operator*()           { return *file; }
     FILE** operator&()          { return &file; }
     FILE* operator=(FILE* pnew) { return file = pnew; }
-    bool operator!()            { return (file == nullptr); }
+    bool operator!()            { return (file == NULL); }
 
 
     //

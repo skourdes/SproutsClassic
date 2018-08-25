@@ -28,7 +28,7 @@ const struct {
     {"cmd-reply", ":/icons/tx_output"},
     {"cmd-error", ":/icons/tx_output"},
     {"misc", ":/icons/tx_inout"},
-    {nullptr, nullptr}
+    {NULL, NULL}
 };
 
 /* Object for executing console RPC commands in a separate thread.
@@ -43,7 +43,7 @@ signals:
     void reply(int category, const QString &command);
 };
 
-
+#include "rpcconsole.moc"
 
 void RPCExecutor::start()
 {
@@ -303,7 +303,7 @@ void RPCConsole::clear()
                 "b { color: #006060; } "
                 );
 
-    message(CMD_REPLY, tr("Welcome to the Sprouts RPC console.<br>"
+    message(CMD_REPLY, tr("Welcome to the Sprouts Classic RPC console.<br>"
                           "Use up and down arrows to navigate history, and <b>Ctrl-L</b> to clear screen.<br>"
                           "Type <b>help</b> for an overview of available commands."), true);
 }
@@ -414,4 +414,3 @@ void RPCConsole::scrollToEnd()
     QScrollBar *scrollbar = ui->messagesWidget->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
 }
-#include "rpcconsole.moc"
