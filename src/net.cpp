@@ -1023,7 +1023,7 @@ void ThreadMapPort2(void* parg)
 #else
     /* miniupnpc 1.9.20150730 */
     int error = 0;
-    devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 2, &error);
+    devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 0, &error);
 #endif
 
     struct UPNPUrls urls;
