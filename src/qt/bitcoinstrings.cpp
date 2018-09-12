@@ -78,7 +78,7 @@ QT_TRANSLATE_NOOP("bitcoin-core", "Usage"),
 QT_TRANSLATE_NOOP("bitcoin-core", ""
 "Cannot obtain a lock on data directory %s.  Sprouts Classic is probably already "
 "running."),
-QT_TRANSLATE_NOOP("bitcoin-core", "Sprouts Classic"),
+QT_TRANSLATE_NOOP("bitcoin-core", "SproutsClassic"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Loading addresses..."),
 QT_TRANSLATE_NOOP("bitcoin-core", "Error loading addr.dat"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Loading block index..."),

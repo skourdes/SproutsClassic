@@ -1116,9 +1116,9 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
     if (!comments.empty())
         ss << "(" << boost::algorithm::join(comments, "; ") << ")";
     ss << "/";
-    ss << "Sprouts Classic:" << FormatVersion(PPCOIN_VERSION);
+    ss << "SproutsClassic:" << FormatVersion(PPCOIN_VERSION);
     ss << "/";
-    ss << "Sprouts Classic:" << FormatVersion(PEERUNITY_VERSION);
+    ss << "SproutsClassic:" << FormatVersion(PEERUNITY_VERSION);
     ss << "(" << CLIENT_BUILD << ")/";
     return ss.str();
 }

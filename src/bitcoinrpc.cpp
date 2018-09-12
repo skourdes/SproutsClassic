@@ -391,10 +391,10 @@ Value stop(const Array& params, bool fHelp)
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "stop\n"
-            "Stop Sprouts server.");
+            "Stop Sprouts Classic server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "Sprouts server stopping";
+    return "Sprouts Classic server stopping";
 }
 
 
@@ -633,7 +633,7 @@ Value getnewaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewaddress [account]\n"
-            "Returns a new Sprouts address for receiving payments.  "
+            "Returns a new Sprouts Classic address for receiving payments.  "
             "If [account] is specified (recommended), it is added to the address book "
             "so payments received with the address will be credited to [account].");
 
@@ -700,7 +700,7 @@ Value getaccountaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccountaddress <account>\n"
-            "Returns the current Sprouts address for receiving payments to this account.");
+            "Returns the current Sprouts Classic address for receiving payments to this account.");
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);

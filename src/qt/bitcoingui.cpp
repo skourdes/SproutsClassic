@@ -284,7 +284,7 @@ void BitcoinGUI::createActions()
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
     optionsAction->setToolTip(tr("Modify configuration options for Sprouts Classic"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
-    toggleHideAction = new QAction(QIcon(":/icons/sprouts_tooltip"), tr("Show/Hide &Sprouts"), this);
+    toggleHideAction = new QAction(QIcon(":/icons/sprouts_tooltip"), tr("Show/Hide &SproutsClassic"), this);
     toggleHideAction->setToolTip(tr("Show or hide the Sprouts Classic window"));
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));

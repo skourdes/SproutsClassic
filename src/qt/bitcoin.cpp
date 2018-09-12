@@ -195,11 +195,11 @@ int main(int argc, char *argv[])
     // Application identification (must be set before OptionsModel is initialized,
     // as it is used to locate QSettings)
     app.setOrganizationName("Sprouts Classic");
-    app.setOrganizationDomain("sprouts.org");
+    app.setOrganizationDomain("sproutsclassic.wordpress.com");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        app.setApplicationName("Sprouts-Qt-testnet");
+        app.setApplicationName("SproutsClassic-Qt-testnet");
     else
-        app.setApplicationName("Sprouts-Qt");
+        app.setApplicationName("SproutsClassic-Qt");
 
     // ... then GUI settings:
     OptionsModel optionsModel;
