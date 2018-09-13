@@ -75,7 +75,7 @@ void Shutdown(void* parg)
         delete pwalletMain;
         CreateThread(ExitTimeout, NULL);
         Sleep(50);
-        printf("Sprouts exiting\n\n");
+        printf("Sprouts Classic exiting\n\n");
         fExit = true;
 #ifndef QT_GUI
         // ensure non UI client get's exited here, but let Bitcoin-Qt reach return 0; in bitcoin.cpp
@@ -652,7 +652,7 @@ bool AppInit2(int argc, char* argv[])
             return false;
         }
         if (nTransactionFee > 0.25 * COIN)
-            ThreadSafeMessageBox(_("Warning: -paytxfee is set very high.  This is the transaction fee you will pay if you send a transaction."), _("Sprouts"), wxOK | wxICON_EXCLAMATION | wxMODAL);
+            ThreadSafeMessageBox(_("Warning: -paytxfee is set very high.  This is the transaction fee you will pay if you send a transaction."), _("Sprouts Classic"), wxOK | wxICON_EXCLAMATION | wxMODAL);
     }
 
     if (mapArgs.count("-reservebalance")) // sprouts: reserve balance amount

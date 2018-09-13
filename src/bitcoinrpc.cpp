@@ -3787,7 +3787,7 @@ void ThreadRPCServer2(void* parg)
         return;
     }
 
-    ssl::context context(ssl::context::sslv23);
+    ssl::context context(io_service, ssl::context::sslv23);
     if (fUseSSL)
     {
         context.set_options(ssl::context::no_sslv2);
@@ -3803,7 +3803,7 @@ void ThreadRPCServer2(void* parg)
         else printf("ThreadRPCServer ERROR: missing server private key file %s\n", pathPKFile.string().c_str());
 
         string strCiphers = GetArg("-rpcsslciphers", "TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH");
-        SSL_CTX_set_cipher_list(context.native_handle(), strCiphers.c_str());
+        SSL_CTX_set_cipher_list(context.impl(), strCiphers.c_str());
     }
 
     while (true)
@@ -3934,7 +3934,7 @@ Object CallRPC(const string& strMethod, const Array& params)
     // Connect to localhost
     bool fUseSSL = GetBoolArg("-rpcssl");
     asio::io_service io_service;
-    ssl::context context(ssl::context::sslv23);
+    ssl::context context(io_service, ssl::context::sslv23);
     context.set_options(ssl::context::no_sslv2);
     SSLStream sslStream(io_service, context);
     SSLIOStreamDevice d(sslStream, fUseSSL);

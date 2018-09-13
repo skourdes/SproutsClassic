@@ -1074,7 +1074,7 @@ void AddTimeData(const CNetAddr& ip, int64 nTime)
                     string strMessage = _("Warning: Please check that your computer's date and time are correct.  If your clock is wrong Sprouts will not work properly.");
                     strMiscWarning = strMessage;
                     printf("*** %s\n", strMessage.c_str());
-                    ThreadSafeMessageBox(strMessage+" ", string("Sprouts Classic"), wxOK | wxICON_EXCLAMATION);
+                    ThreadSafeMessageBox(strMessage+" ", string("Sprouts"), wxOK | wxICON_EXCLAMATION);
                 }
             }
         }
@@ -1116,9 +1116,9 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
     if (!comments.empty())
         ss << "(" << boost::algorithm::join(comments, "; ") << ")";
     ss << "/";
-    ss << "SproutsClassic:" << FormatVersion(PPCOIN_VERSION);
+    ss << "Sprouts:" << FormatVersion(PPCOIN_VERSION);
     ss << "/";
-    ss << "SproutsClassic:" << FormatVersion(PEERUNITY_VERSION);
+    ss << "Sprouts:" << FormatVersion(PEERUNITY_VERSION);
     ss << "(" << CLIENT_BUILD << ")/";
     return ss.str();
 }
