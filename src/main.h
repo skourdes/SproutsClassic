@@ -36,7 +36,7 @@ static const int64 MIN_TX_FEE = CENT;
 static const int64 MIN_RELAY_TX_FEE = CENT;
 //static const int64 MAX_MONEY = 2000000000 * COIN;
 //The below variable increases the ability have a maximum of 100 billion Sprouts Classic coins in the wallet instead of the 2 billion.
-static const int64 MAX_MONEY_2 = 100000000000 * COIN;
+static const int64 MAX_MONEY_2 = std::numeric_limits<int64>::max();
 static const int64 MAX_MINT_PROOF_OF_WORK = 9999 * COIN;
 static const int64 MIN_TXOUT_AMOUNT = MIN_TX_FEE;
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY_2); }
