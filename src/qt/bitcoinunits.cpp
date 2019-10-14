@@ -56,10 +56,10 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case BTC:  return 1000000;
-    case mBTC: return 1000;
+    case BTC:  return 10000;
+    case mBTC: return 100;
     case uBTC: return 1;
-    default:   return 1000000;
+    default:   return 10000;
     }
 }
 
@@ -67,9 +67,9 @@ int BitcoinUnits::amountDigits(int unit)
 {
     switch(unit)
     {
-    case BTC: return 10; // 21,000,000 (# digits, without commas)
-    case mBTC: return 13; // 21,000,000,000
-    case uBTC: return 16; // 21,000,000,000,000
+    case BTC: return 14; // 21,000,000 (# digits, without commas)
+    case mBTC: return 17; // 21,000,000,000
+    case uBTC: return 20; // 21,000,000,000,000
     default: return 0;
     }
 }
@@ -78,8 +78,8 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case BTC: return 6;
-    case mBTC: return 3;
+    case BTC: return 4;
+    case mBTC: return 1;
     case uBTC: return 0;
     default: return 0;
     }
