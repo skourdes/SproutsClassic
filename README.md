@@ -1,22 +1,22 @@
-# Sprouts Official Development Repository
+# Sprouts Classic Official Development Repository
 
-## What is Sprouts?
+## What is Sprouts Classic?
 
-Sprouts is a Sprouts network-compatible, community-developed wallet client.
+Sprouts Classic is the original Sprouts, a network-compatible, community-developed wallet client.
 
 The project has been designed to provide people with a stable, secure, and feature-rich alternative to the Sprouts reference wallet (http://github.com/ppcoin/ppcoin).
 
-To help faciliate broad community cooperation, a number of trusted Sprouts/Peershares community leaders have write permissions to the project's codebase, allowing for decentralization and continuity. Community members, old and new, are encouraged to find ways to contribute to the success of the project. If you have experience with programming, product design, QA engineering, translation, or have a different set of skills that you want to bring to the project, your involvement is appreciated!
+To help faciliate broad community cooperation, a number of trusted Sprouts Classic/Peershares community leaders have write permissions to the project's codebase, allowing for decentralization and continuity. Community members, old and new, are encouraged to find ways to contribute to the success of the project. If you have experience with programming, product design, QA engineering, translation, or have a different set of skills that you want to bring to the project, your involvement is appreciated!
 
 
-### Sprouts Resources
-* Source: [Source Code](https://github.com/Sprouts/Sprouts)
-* Documentation: [Build Instructions](https://github.com/Sprouts/Sprouts/tree/master/doc)
-* Support: [Sprouts Forum](http://www.peercointalk.org/index.php?board=64.0), [Issue Tracker](https://github.com/Sprouts/Sprouts/issues?state=open)
+### Sprouts Classic Resources
+* Source: [Source Code](https://github.com/skourdes/SproutsClassic)
+* Documentation: [Build Instructions](https://github.com/skourdes/SproutsClassic/tree/master/doc)
+* Support: [Sprouts Forum](https://bitcointalk.org/index.php?topic=4834706.260), [Issue Tracker](https://github.com/skourdes/SproutsClassic/issues?state=open)
 
 
-### About Sprouts
-[Sprouts](http://peercoin.net/) (abbreviated SPRTS), also known as Sprouts and Peer-to-Peer Coin is the first [cryptocurrency](https://en.wikipedia.org/wiki/Cryptocurrency) design introducing [proof-of-stake consensus](http://peercoin.net/bin/peercoin-paper.pdf) as a security model, with a combined [proof-of-stake](http://peercoin.net/bin/peercoin-paper.pdf)/[proof-of-work](https://en.wikipedia.org/wiki/Proof-of-work_system) minting system. Sprouts is based on [Bitcoin](http://bitcoin.org/en/), while introducing many important innovations to cryptocurrency field including new security model, energy efficiency, better minting model and more adaptive response to rapid change in network computation power.
+### About Sprouts Classic
+[Sprouts Classic](http://www.sproutsclassic.com/#service) (abbreviated SPRTSC), also known as Sprouts Classic and Peer-to-Peer Coin is the first [cryptocurrency](https://en.wikipedia.org/wiki/Cryptocurrency) design introducing [proof-of-stake consensus](http://peercoin.net/bin/peercoin-paper.pdf) as a security model, with a combined [proof-of-stake](http://peercoin.net/bin/peercoin-paper.pdf)/[proof-of-work](https://en.wikipedia.org/wiki/Proof-of-work_system) minting system. Sprouts Classic is based on [Bitcoin](http://bitcoin.org/en/), while introducing many important innovations to cryptocurrency field including new security model, energy efficiency, better minting model and more adaptive response to rapid change in network computation power.
 
 
 ## Repo Guidelines
