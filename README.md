@@ -4,7 +4,7 @@
 
 Sprouts Classic is the original Sprouts, a network-compatible, community-developed wallet client.
 
-The project has been designed to provide people with a stable, secure, and feature-rich alternative to the Sprouts reference wallet (http://github.com/ppcoin/ppcoin).
+The project has been designed to provide people with a stable, secure, and feature-rich alternative to the Sprouts Classic reference wallet (http://github.com/ppcoin/ppcoin).
 
 To help faciliate broad community cooperation, a number of trusted Sprouts Classic/Peershares community leaders have write permissions to the project's codebase, allowing for decentralization and continuity. Community members, old and new, are encouraged to find ways to contribute to the success of the project. If you have experience with programming, product design, QA engineering, translation, or have a different set of skills that you want to bring to the project, your involvement is appreciated!
 
@@ -23,7 +23,7 @@ To help faciliate broad community cooperation, a number of trusted Sprouts Class
 
 * Developers work in their own forks, then submit pull requests when they think their feature or bug fix is ready.
 * If it is a simple/trivial/non-controversial change, then one of the development team members simply pulls it.
-* If it is a more complicated or potentially controversial change, then the change may be discussed in the pull request, or the requester may be asked to start a discussion [Sprouts Talk](http://www.peercointalk.org/) for a broader community discussion.
+* If it is a more complicated or potentially controversial change, then the change may be discussed in the pull request, or the requester may be asked to start a discussion [Sprouts Talk](https://bitcointalk.org/index.php?topic=4834706.0) for a broader community discussion.
 * The patch will be accepted if there is broad consensus that it is a good thing. Developers should expect to rework and resubmit patches if they don't match the project's coding conventions (see coding.txt) or are controversial.
 * From time to time a pull request will become outdated. If this occurs, and the pull is no longer automatically mergeable; a comment on the pull will be used to issue a warning of closure.  Pull requests closed in this manner will have their corresponding issue labeled 'stagnant'.
 * For development ideas and help see [here](http://www.peercointalk.org/index.php?board=10.0).
@@ -32,7 +32,7 @@ To help faciliate broad community cooperation, a number of trusted Sprouts Class
 ## Translation Guidelines
 
 Changes to translations as well as new translations can be submitted to
-[Sprouts's Get Localization page](http://www.getlocalization.com/Sprouts/).
+[Sprouts Classic Forum](https://bitcointalk.org/index.php?topic=4834706.0).
 
 Translations are periodically pulled from Get Localization and merged into the git repository.
 
@@ -46,8 +46,8 @@ Standard build tool is Qt `qmake`, the following is executed in /home/${USER}.
     sudo apt-get install libprotoc-dev libprotobuf-dev -y
     sudo apt-get install libpng-dev qrencode -y
     sudo apt-get install libqrencode-dev -y
-    git clone https://github.com/sproutscommunity/sprouts
-    cd sprouts
+    git clone https://github.com/skourdes/SproutsClassic
+    cd SproutsClassic
     qmake USE_O3=1 USE_QRCODE=1 FIRST_CLASS_MESSAGING=1 RELEASE=1 USE_UPNPC=1
     make
 
@@ -85,13 +85,13 @@ By default, this command will uninstall homebrew and remove its footprint, i.e. 
 
 In a new Terminal window:
 
-    $ git clone https://github.com/sprouts-project/sprouts.git
-    $ cd sprouts
-    $ /usr/local/opt/qt/bin/qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 sprouts-qt.pro
+    $ git clone https://github.com/skourdes/SproutsClassic.git
+    $ cd SproutsClassic
+    $ /usr/local/opt/qt/bin/qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 sprouts.pro
     $ make
     $ export QTDIR=/usr/local/opt/qt5
     $ T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
-    $ python2.7 contrib/macdeploy/macdeployqtplus  -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist Sprouts-Qt.app
+    $ python2.7 contrib/macdeploy/macdeployqtplus  -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist SproutsClassic.app
 
 
 ## Ubuntu-hosted cross-compilation of Windows 32bit binary 
@@ -137,7 +137,7 @@ For example, cross-compile CMake project:
 
 *(Generally, Windows cross-compiled products are 32-bit and will run on both 32-bit and 64-bit Windows systems.)*
 
-### Cross-compiling SPROUTS
+### Cross-compiling SPROUTS CLASSIC
 
     #!/bin/bash
 
@@ -190,12 +190,12 @@ For example, cross-compile CMake project:
         MINIUPNPC_LIB_PATH=${MINIUPNPC_LIB_PATH} \
         QMAKE_LRELEASE=${QMAKE_LRELEASE} sprouts-qt.pro
 
-    # Go for it. If successful, Windows binary will be written out to ./release/sprouts-qt.exe
+    # Go for it. If successful, Windows binary will be written out to ./release/SproutsClassic.exe
     make -f Makefile.Release CXXFLAGS="-DQT_GUI -DQT_NO_PRINTER -std=gnu++11 -march=i686" LDFLAGS="-march=i686"
 
-The cross-compilation product is saved in the `release` directory under the name `sprouts-qt.exe` and can be tested on Ubuntu with:
+The cross-compilation product is saved in the `release` directory under the name `SproutsClassic.exe` and can be tested on Ubuntu with:
 
-    $ wine release/sprouts-qt.exe
+    $ wine release/SproutsClassic.exe
 
 *(be prepared for a long wait during the loading of the index, e.g. 15-20 mins on a low-end machine)*
 
