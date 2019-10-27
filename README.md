@@ -188,7 +188,7 @@ For example, cross-compile CMake project:
         BDB_LIB_PATH=${BDB_LIB_PATH} \
         MINIUPNPC_INCLUDE_PATH=${MINIUPNPC_INCLUDE_PATH} \
         MINIUPNPC_LIB_PATH=${MINIUPNPC_LIB_PATH} \
-        QMAKE_LRELEASE=${QMAKE_LRELEASE} sprouts-qt.pro
+        QMAKE_LRELEASE=${QMAKE_LRELEASE} sprouts.pro
 
     # Go for it. If successful, Windows binary will be written out to ./release/SproutsClassic.exe
     make -f Makefile.Release CXXFLAGS="-DQT_GUI -DQT_NO_PRINTER -std=gnu++11 -march=i686" LDFLAGS="-march=i686"
